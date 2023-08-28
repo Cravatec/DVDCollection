@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */; };
+		22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B9A2A9CD08D0060ACA7 /* ContentView.swift */; };
+		22908B9D2A9CD08E0060ACA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */; };
+		22908BA12A9CD08E0060ACA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22908BA02A9CD08E0060ACA7 /* Preview Assets.xcassets */; };
+		22908BAB2A9CD08E0060ACA7 /* DVDCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908BAA2A9CD08E0060ACA7 /* DVDCollectionTests.swift */; };
+		22908BB52A9CD08E0060ACA7 /* DVDCollectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908BB42A9CD08E0060ACA7 /* DVDCollectionUITests.swift */; };
+		22908BB72A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908BB62A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22908BA72A9CD08E0060ACA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22908B8D2A9CD08D0060ACA7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22908B942A9CD08D0060ACA7;
+			remoteInfo = DVDCollection;
+		};
+		22908BB12A9CD08E0060ACA7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22908B8D2A9CD08D0060ACA7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22908B942A9CD08D0060ACA7;
+			remoteInfo = DVDCollection;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		22908B952A9CD08D0060ACA7 /* DVDCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionApp.swift; sourceTree = "<group>"; };
+		22908B9A2A9CD08D0060ACA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		22908B9E2A9CD08E0060ACA7 /* DVDCollection.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DVDCollection.entitlements; sourceTree = "<group>"; };
+		22908BA02A9CD08E0060ACA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		22908BA62A9CD08E0060ACA7 /* DVDCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVDCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22908BAA2A9CD08E0060ACA7 /* DVDCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionTests.swift; sourceTree = "<group>"; };
+		22908BB02A9CD08E0060ACA7 /* DVDCollectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVDCollectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22908BB42A9CD08E0060ACA7 /* DVDCollectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionUITests.swift; sourceTree = "<group>"; };
+		22908BB62A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22908B922A9CD08D0060ACA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BA32A9CD08E0060ACA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BAD2A9CD08E0060ACA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22908B8C2A9CD08D0060ACA7 = {
+			isa = PBXGroup;
+			children = (
+				22908B972A9CD08D0060ACA7 /* DVDCollection */,
+				22908BA92A9CD08E0060ACA7 /* DVDCollectionTests */,
+				22908BB32A9CD08E0060ACA7 /* DVDCollectionUITests */,
+				22908B962A9CD08D0060ACA7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		22908B962A9CD08D0060ACA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22908B952A9CD08D0060ACA7 /* DVDCollection.app */,
+				22908BA62A9CD08E0060ACA7 /* DVDCollectionTests.xctest */,
+				22908BB02A9CD08E0060ACA7 /* DVDCollectionUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22908B972A9CD08D0060ACA7 /* DVDCollection */ = {
+			isa = PBXGroup;
+			children = (
+				22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */,
+				22908B9A2A9CD08D0060ACA7 /* ContentView.swift */,
+				22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */,
+				22908B9E2A9CD08E0060ACA7 /* DVDCollection.entitlements */,
+				22908B9F2A9CD08E0060ACA7 /* Preview Content */,
+			);
+			path = DVDCollection;
+			sourceTree = "<group>";
+		};
+		22908B9F2A9CD08E0060ACA7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				22908BA02A9CD08E0060ACA7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		22908BA92A9CD08E0060ACA7 /* DVDCollectionTests */ = {
+			isa = PBXGroup;
+			children = (
+				22908BAA2A9CD08E0060ACA7 /* DVDCollectionTests.swift */,
+			);
+			path = DVDCollectionTests;
+			sourceTree = "<group>";
+		};
+		22908BB32A9CD08E0060ACA7 /* DVDCollectionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				22908BB42A9CD08E0060ACA7 /* DVDCollectionUITests.swift */,
+				22908BB62A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift */,
+			);
+			path = DVDCollectionUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		22908B942A9CD08D0060ACA7 /* DVDCollection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22908BBA2A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollection" */;
+			buildPhases = (
+				22908B912A9CD08D0060ACA7 /* Sources */,
+				22908B922A9CD08D0060ACA7 /* Frameworks */,
+				22908B932A9CD08D0060ACA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DVDCollection;
+			productName = DVDCollection;
+			productReference = 22908B952A9CD08D0060ACA7 /* DVDCollection.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22908BA52A9CD08E0060ACA7 /* DVDCollectionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22908BBD2A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollectionTests" */;
+			buildPhases = (
+				22908BA22A9CD08E0060ACA7 /* Sources */,
+				22908BA32A9CD08E0060ACA7 /* Frameworks */,
+				22908BA42A9CD08E0060ACA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22908BA82A9CD08E0060ACA7 /* PBXTargetDependency */,
+			);
+			name = DVDCollectionTests;
+			productName = DVDCollectionTests;
+			productReference = 22908BA62A9CD08E0060ACA7 /* DVDCollectionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		22908BAF2A9CD08E0060ACA7 /* DVDCollectionUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22908BC02A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollectionUITests" */;
+			buildPhases = (
+				22908BAC2A9CD08E0060ACA7 /* Sources */,
+				22908BAD2A9CD08E0060ACA7 /* Frameworks */,
+				22908BAE2A9CD08E0060ACA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22908BB22A9CD08E0060ACA7 /* PBXTargetDependency */,
+			);
+			name = DVDCollectionUITests;
+			productName = DVDCollectionUITests;
+			productReference = 22908BB02A9CD08E0060ACA7 /* DVDCollectionUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22908B8D2A9CD08D0060ACA7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					22908B942A9CD08D0060ACA7 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					22908BA52A9CD08E0060ACA7 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 22908B942A9CD08D0060ACA7;
+					};
+					22908BAF2A9CD08E0060ACA7 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 22908B942A9CD08D0060ACA7;
+					};
+				};
+			};
+			buildConfigurationList = 22908B902A9CD08D0060ACA7 /* Build configuration list for PBXProject "DVDCollection" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 22908B8C2A9CD08D0060ACA7;
+			productRefGroup = 22908B962A9CD08D0060ACA7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22908B942A9CD08D0060ACA7 /* DVDCollection */,
+				22908BA52A9CD08E0060ACA7 /* DVDCollectionTests */,
+				22908BAF2A9CD08E0060ACA7 /* DVDCollectionUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22908B932A9CD08D0060ACA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22908BA12A9CD08E0060ACA7 /* Preview Assets.xcassets in Resources */,
+				22908B9D2A9CD08E0060ACA7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BA42A9CD08E0060ACA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BAE2A9CD08E0060ACA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22908B912A9CD08D0060ACA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */,
+				22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BA22A9CD08E0060ACA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22908BAB2A9CD08E0060ACA7 /* DVDCollectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22908BAC2A9CD08E0060ACA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22908BB52A9CD08E0060ACA7 /* DVDCollectionUITests.swift in Sources */,
+				22908BB72A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22908BA82A9CD08E0060ACA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22908B942A9CD08D0060ACA7 /* DVDCollection */;
+			targetProxy = 22908BA72A9CD08E0060ACA7 /* PBXContainerItemProxy */;
+		};
+		22908BB22A9CD08E0060ACA7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22908B942A9CD08D0060ACA7 /* DVDCollection */;
+			targetProxy = 22908BB12A9CD08E0060ACA7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		22908BB82A9CD08E0060ACA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		22908BB92A9CD08E0060ACA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		22908BBB2A9CD08E0060ACA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DVDCollection/DVDCollection.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DVDCollection/Preview Content\"";
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollection;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		22908BBC2A9CD08E0060ACA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DVDCollection/DVDCollection.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DVDCollection/Preview Content\"";
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollection;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		22908BBE2A9CD08E0060ACA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollectionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DVDCollection.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DVDCollection";
+			};
+			name = Debug;
+		};
+		22908BBF2A9CD08E0060ACA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollectionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DVDCollection.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DVDCollection";
+			};
+			name = Release;
+		};
+		22908BC12A9CD08E0060ACA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollectionUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DVDCollection;
+			};
+			name = Debug;
+		};
+		22908BC22A9CD08E0060ACA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 232L77WD2C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrobels.DVDCollectionUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DVDCollection;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22908B902A9CD08D0060ACA7 /* Build configuration list for PBXProject "DVDCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22908BB82A9CD08E0060ACA7 /* Debug */,
+				22908BB92A9CD08E0060ACA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22908BBA2A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22908BBB2A9CD08E0060ACA7 /* Debug */,
+				22908BBC2A9CD08E0060ACA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22908BBD2A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollectionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22908BBE2A9CD08E0060ACA7 /* Debug */,
+				22908BBF2A9CD08E0060ACA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22908BC02A9CD08E0060ACA7 /* Build configuration list for PBXNativeTarget "DVDCollectionUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22908BC12A9CD08E0060ACA7 /* Debug */,
+				22908BC22A9CD08E0060ACA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22908B8D2A9CD08D0060ACA7 /* Project object */;
+}
