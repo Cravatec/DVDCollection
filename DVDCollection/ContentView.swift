@@ -6,16 +6,38 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 struct ContentView: View {
+    @State private var isShowingScanner = false
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
+            Button {
+                isShowingScanner = true
+            } label: {
+                Label("Scan", systemImage: "barcode.viewfinder")
+                    .sheet(isPresented: $isShowingScanner) {
+                        CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: "3344428005627", shouldVibrateOnSuccess: true, completion: handleScan)
+                    }
+            }
         }
         .padding()
+    }
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        isShowingScanner = false
+        
+        switch result {
+        case .success(let result):
+            let barcode = result.string
+            print(barcode)
+        case .failure(let error):
+            print("Scanning failed: \(error.localizedDescription)")
+        }
     }
 }
 
