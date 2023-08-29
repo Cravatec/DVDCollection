@@ -10,7 +10,7 @@ import CodeScanner
 
 struct ContentView: View {
     @State private var isShowingScanner = false
-
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -35,6 +35,7 @@ struct ContentView: View {
         case .success(let result):
             let barcode = result.string
             print(barcode)
+            FetchDvdFrApi().getDvdFrInfo(barcode: barcode)
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }
