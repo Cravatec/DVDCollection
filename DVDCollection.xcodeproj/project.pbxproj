@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2200B0DF2A9E2931008B7E33 /* FetchDvdFrApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */; };
+		2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */; };
 		22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */; };
 		22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B9A2A9CD08D0060ACA7 /* ContentView.swift */; };
 		22908B9D2A9CD08E0060ACA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDvdFrApi.swift; sourceTree = "<group>"; };
+		2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrModel.swift; sourceTree = "<group>"; };
 		22908B952A9CD08D0060ACA7 /* DVDCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionApp.swift; sourceTree = "<group>"; };
 		22908B9A2A9CD08D0060ACA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +78,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2200B0E32A9E29AB008B7E33 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2200B0E42A9E2A13008B7E33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		22908B8C2A9CD08D0060ACA7 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +119,8 @@
 			children = (
 				22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */,
 				22908B9A2A9CD08D0060ACA7 /* ContentView.swift */,
+				2200B0E42A9E2A13008B7E33 /* Model */,
+				2200B0E32A9E29AB008B7E33 /* Service */,
 				22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */,
 				22908B9E2A9CD08E0060ACA7 /* DVDCollection.entitlements */,
 				22908B9F2A9CD08E0060ACA7 /* Preview Content */,
@@ -267,6 +289,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */,
+				2200B0DF2A9E2931008B7E33 /* FetchDvdFrApi.swift in Sources */,
 				22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */,
 				22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */,
 			);
