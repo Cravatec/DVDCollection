@@ -17,7 +17,7 @@ struct Dvds: Decodable {
 }
 
 // MARK: - DVD
-struct Dvd: Decodable {
+struct Dvd: Identifiable, Decodable {
     let id: String
     let media: String
     let cover: String

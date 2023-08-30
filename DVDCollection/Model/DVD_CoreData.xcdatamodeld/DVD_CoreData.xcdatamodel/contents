@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G90" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="DVD_CoreData" representedClassName="DVD_CoreData" syncable="YES" codeGenerationType="class">
-        <attribute name="annee" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="annee" optional="YES" attributeType="String"/>
         <attribute name="cover" optional="YES" attributeType="String"/>
         <attribute name="editeur" optional="YES" attributeType="String"/>
         <attribute name="edition" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="media" optional="YES" attributeType="String"/>
         <attribute name="titleAlternatif" optional="YES" attributeType="String"/>
         <attribute name="titleAlternatifVo" optional="YES" attributeType="String"/>
