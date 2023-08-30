@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2200B0DF2A9E2931008B7E33 /* FetchDvdFrApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */; };
 		2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */; };
-		226471992A9E9FB4006D4091 /* xmlParserForDvdFr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226471982A9E9FB4006D4091 /* xmlParserForDvdFr.swift */; };
+		226471992A9E9FB4006D4091 /* DvdFrXmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */; };
 		22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */; };
 		22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908B9A2A9CD08D0060ACA7 /* ContentView.swift */; };
 		22908B9D2A9CD08E0060ACA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDvdFrApi.swift; sourceTree = "<group>"; };
 		2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrModel.swift; sourceTree = "<group>"; };
-		226471982A9E9FB4006D4091 /* xmlParserForDvdFr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xmlParserForDvdFr.swift; sourceTree = "<group>"; };
+		226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrXmlParser.swift; sourceTree = "<group>"; };
 		22908B952A9CD08D0060ACA7 /* DVDCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionApp.swift; sourceTree = "<group>"; };
 		22908B9A2A9CD08D0060ACA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,6 +89,7 @@
 			children = (
 				2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */,
 				22AC62BF2A9F4A2200085927 /* StorageService.swift */,
+				226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -97,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */,
-				226471982A9E9FB4006D4091 /* xmlParserForDvdFr.swift */,
 				22AC62BC2A9F486E00085927 /* DVD_CoreData.xcdatamodeld */,
 			);
 			path = Model;
@@ -300,7 +300,7 @@
 			files = (
 				2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */,
 				2200B0DF2A9E2931008B7E33 /* FetchDvdFrApi.swift in Sources */,
-				226471992A9E9FB4006D4091 /* xmlParserForDvdFr.swift in Sources */,
+				226471992A9E9FB4006D4091 /* DvdFrXmlParser.swift in Sources */,
 				22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */,
 				22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */,
 				22AC62BE2A9F486E00085927 /* DVD_CoreData.xcdatamodeld in Sources */,

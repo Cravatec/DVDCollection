@@ -1,5 +1,5 @@
 //
-//  xmlParserForDvdFr.swift
+//  DvdFrXmlParser.swift
 //  DVDCollection
 //
 //  Created by Sam on 29/08/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class xmlParserForDvdFr: NSObject, XMLParserDelegate {
+class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     var currentElement: String = ""
     var currentDVD: [String: String] = [:]
@@ -35,12 +35,14 @@ class xmlParserForDvdFr: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "dvd" {
             let dvd = DvdFrModel(dvds: Dvds(dvd: Dvd(id: currentDVD["id"] ?? "",
-                                 media: currentDVD["media"] ?? "",
-                                 cover: currentDVD["cover"] ?? "",
-                                                     titres: Titres(fr: currentDVD["fr"] ?? "", vo: currentDVD["vo"] ?? "", alternatif: currentDVD["alternatif"] ?? "", alternatifVo: currentDVD["alternatif_vo"] ?? ""),
-                                 
-                                 annee: currentDVD["annee"] ?? "",
-                                 edition: currentDVD["edition"] ?? "",
+                                                     media: currentDVD["media"] ?? "",
+                                                     cover: currentDVD["cover"] ?? "",
+                                                     titres: Titres(fr: currentDVD["fr"] ?? "",
+                                                                    vo: currentDVD["vo"] ?? "",
+                                                                    alternatif: currentDVD["alternatif"] ?? "",
+                                                                    alternatifVo: currentDVD["alternatif_vo"] ?? ""),
+                                                     annee: currentDVD["annee"] ?? "",
+                                                     edition: currentDVD["edition"] ?? "",
                                                      editeur: currentDVD["editeur"] ?? "")))
             dvds.append(dvd)
         }
@@ -49,7 +51,7 @@ class xmlParserForDvdFr: NSObject, XMLParserDelegate {
 
 func xmlParserDvdFr(xml:Data){
     let parser = XMLParser(data: xml)
-    let dvdParser = xmlParserForDvdFr()
+    let dvdParser = DvdFrXmlParser()
     parser.delegate = dvdParser
     parser.parse()
     
