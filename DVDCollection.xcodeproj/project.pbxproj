@@ -18,6 +18,8 @@
 		22908BB52A9CD08E0060ACA7 /* DVDCollectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908BB42A9CD08E0060ACA7 /* DVDCollectionUITests.swift */; };
 		22908BB72A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22908BB62A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift */; };
 		22908BC52A9CDC070060ACA7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 22908BC42A9CDC070060ACA7 /* CodeScanner */; };
+		22AC62BE2A9F486E00085927 /* DVD_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22AC62BC2A9F486E00085927 /* DVD_CoreData.xcdatamodeld */; };
+		22AC62C02A9F4A2200085927 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC62BF2A9F4A2200085927 /* StorageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		22908BB02A9CD08E0060ACA7 /* DVDCollectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DVDCollectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22908BB42A9CD08E0060ACA7 /* DVDCollectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionUITests.swift; sourceTree = "<group>"; };
 		22908BB62A9CD08E0060ACA7 /* DVDCollectionUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		22AC62BD2A9F486E00085927 /* DVD_CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DVD_CoreData.xcdatamodel; sourceTree = "<group>"; };
+		22AC62BF2A9F4A2200085927 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */,
+				22AC62BF2A9F4A2200085927 /* StorageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -93,6 +98,7 @@
 			children = (
 				2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */,
 				226471982A9E9FB4006D4091 /* xmlParserForDvdFr.swift */,
+				22AC62BC2A9F486E00085927 /* DVD_CoreData.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -297,6 +303,8 @@
 				226471992A9E9FB4006D4091 /* xmlParserForDvdFr.swift in Sources */,
 				22908B9B2A9CD08D0060ACA7 /* ContentView.swift in Sources */,
 				22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */,
+				22AC62BE2A9F486E00085927 /* DVD_CoreData.xcdatamodeld in Sources */,
+				22AC62C02A9F4A2200085927 /* StorageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +677,19 @@
 			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		22AC62BC2A9F486E00085927 /* DVD_CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				22AC62BD2A9F486E00085927 /* DVD_CoreData.xcdatamodel */,
+			);
+			currentVersion = 22AC62BD2A9F486E00085927 /* DVD_CoreData.xcdatamodel */;
+			path = DVD_CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 22908B8D2A9CD08D0060ACA7 /* Project object */;
 }
