@@ -25,7 +25,12 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
         if !data.isEmpty {
             switch currentElement {
             case "id", "media", "cover", "fr", "vo", "annee", "edition", "editeur", "alternatif", "alternatif_vo":
-                currentDVD[currentElement] = data
+                if currentDVD[currentElement] != nil {
+                    currentDVD[currentElement]?.append(data)
+                } else {
+                    currentDVD[currentElement] = data
+                }
+
             default:
                 break
             }
