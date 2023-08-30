@@ -11,7 +11,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     var currentElement: String = ""
     var currentDVD: [String: String] = [:]
-    var dvds: [DvdFrModel] = []
+    var dvds: [Dvd] = []
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
@@ -34,16 +34,16 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "dvd" {
-            let dvd = DvdFrModel(dvds: Dvds(dvd: Dvd(id: currentDVD["id"] ?? "",
-                                                     media: currentDVD["media"] ?? "",
-                                                     cover: currentDVD["cover"] ?? "",
-                                                     titres: Titres(fr: currentDVD["fr"] ?? "",
-                                                                    vo: currentDVD["vo"] ?? "",
-                                                                    alternatif: currentDVD["alternatif"] ?? "",
-                                                                    alternatifVo: currentDVD["alternatif_vo"] ?? ""),
-                                                     annee: currentDVD["annee"] ?? "",
-                                                     edition: currentDVD["edition"] ?? "",
-                                                     editeur: currentDVD["editeur"] ?? "")))
+            let dvd = Dvd(id: currentDVD["id"] ?? "",
+                          media: currentDVD["media"] ?? "",
+                          cover: currentDVD["cover"] ?? "",
+                          titres: Titres(fr: currentDVD["fr"] ?? "",
+                                         vo: currentDVD["vo"] ?? "",
+                                         alternatif: currentDVD["alternatif"] ?? "",
+                                         alternatifVo: currentDVD["alternatif_vo"] ?? ""),
+                          annee: currentDVD["annee"] ?? "",
+                          edition: currentDVD["edition"] ?? "",
+                          editeur: currentDVD["editeur"] ?? "")
             dvds.append(dvd)
         }
     }
@@ -56,5 +56,14 @@ func xmlParserDvdFr(xml:Data){
     parser.parse()
     
     print(dvdParser.dvds)
+    
+    CoreDataStorage.shared.save(dvds: dvdParser.dvds) { result in
+        switch result {
+        case .success:
+            print("DVDs saved successfully")
+        case .failure(let error):
+            print("Failed to save DVDs: \(error)")
+        }
+    }
     
 }
