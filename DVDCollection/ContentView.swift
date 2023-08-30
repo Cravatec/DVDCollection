@@ -22,7 +22,7 @@ struct ContentView: View {
             } label: {
                 Label("Scan", systemImage: "barcode.viewfinder")
                     .sheet(isPresented: $isShowingScanner) {
-                        CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: "3344428005627", shouldVibrateOnSuccess: true, completion: handleScan)
+                        CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: "3760137632648", shouldVibrateOnSuccess: true, completion: handleScan)
                     }
             }
         }

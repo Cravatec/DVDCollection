@@ -25,7 +25,7 @@ struct Dvd: Decodable {
     let annee: String
     let edition: String
     let editeur: String
-//    let stars: Stars
+    //    let stars: Stars
 }
 
 // MARK: - Stars
@@ -49,7 +49,6 @@ enum TypeEnum: Decodable {
 struct Titres: Decodable {
     let fr: String
     let vo: String
-     let alternatif: String
-     let alternatifVo: String
+    let alternatif: String
+    let alternatifVo: String
 }
-
