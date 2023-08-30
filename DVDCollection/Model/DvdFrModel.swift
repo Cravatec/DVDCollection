@@ -25,7 +25,7 @@ struct Dvd: Decodable {
     let annee: String
     let edition: String
     let editeur: String
-    let stars: Stars
+//    let stars: Stars
 }
 
 // MARK: - Stars

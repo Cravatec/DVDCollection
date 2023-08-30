@@ -36,6 +36,7 @@ class FetchDvdFrApi {
                 guard let xmlData = data else {return}
                 //                do {
                 print("xmlData: \(xmlData)")
+                xmlParserDvdFr(xml: xmlData)
                 //                } catch {
                 //                    print (error)
                 //                }
