@@ -25,6 +25,14 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
         if !data.isEmpty {
             switch currentElement {
             case "id", "media", "cover", "fr", "vo", "annee", "edition", "editeur", "alternatif", "alternatif_vo":
+                /*
+                 On vérifie si le dictionnaire currentDVD avec le currentElement comme key a déjà une valeur, si oui c'est à dire une valeur(string) a été tronquée et une partie est stockée(la première partie bien évidemment),
+                 alors on ajoute à cette valeur stockée la valeur suivante pour le même key (currentElement).
+                 
+                 Si non, on stocke la valeur(data) dans le dictionnaire currentDVD avec le key(currentElement) correspondant.
+                 
+                 A noter un dictionnaire ne contient que des clés ou keys uniques donc si une clé a deja une valeur et on assigne une valeur encore la première est cassée et remplacée par la dernière c'est pour cela pour le cas du key `fr` la valeur final stockée est 'égende'
+                 */
                 if currentDVD[currentElement] != nil {
                     currentDVD[currentElement]?.append(data)
                 } else {
