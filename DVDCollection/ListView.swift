@@ -34,7 +34,7 @@ struct DVDListView: View {
             } label: {
                 Label("Scan", systemImage: "barcode.viewfinder")
                     .sheet(isPresented: $isShowingScanner) {
-                        CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: "3760137632648", shouldVibrateOnSuccess: true, completion: handleScan)
+                        CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: simulatedBarcode.randomElement()!, shouldVibrateOnSuccess: true, completion: handleScan)
                     }
             }
             }
@@ -44,7 +44,7 @@ struct DVDListView: View {
             viewModel.fetchDVDs()
         }
     }
-
+    let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517"]
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
         
