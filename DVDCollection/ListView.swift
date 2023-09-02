@@ -18,12 +18,25 @@ struct DVDListView: View {
             List(viewModel.dvds, id: \.id) { dvd in
                 NavigationLink(destination: DVDDetailView(dvd: dvd)) {
                     HStack {
-                        Image(systemName: "film")
+                        VStack {
+                            Image(systemName: "film").imageScale(.large)
+                            Text(dvd.media)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                         VStack(alignment: .leading) {
                             Text(dvd.titres.fr)
                                 .font(.headline)
+                            Text(dvd.titres.vo)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .lineLimit(1)
+                                .padding(.trailing)
                             Text(dvd.annee)
                                 .font(.subheadline)
+                                .foregroundColor(.gray)
+                            Text(dvd.edition).font(.subheadline)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
