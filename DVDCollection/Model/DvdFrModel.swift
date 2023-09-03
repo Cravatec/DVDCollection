@@ -25,7 +25,7 @@ struct Dvd: Identifiable, Decodable {
     let annee: String
     let edition: String
     let editeur: String
-    //    let stars: Stars
+    let stars: Stars
 }
 
 // MARK: - Stars
@@ -34,17 +34,20 @@ struct Stars: Decodable {
 }
 
 // MARK: - Star
-struct Star: Decodable {
+struct Star: Decodable, Identifiable {
     let type: TypeEnum
     let id: String
     let text: String
+    
+    var identifier: String {
+        return "\(id)-\(type)"
+    }
 }
 
-enum TypeEnum: Decodable {
-    case acteur
-    case réalisateur
+enum TypeEnum: String, Decodable, RawRepresentable {
+    case acteur = "Acteur"
+    case réalisateur = "Réalisateur"
 }
-
 // MARK: - Titres
 struct Titres: Decodable {
     let fr: String

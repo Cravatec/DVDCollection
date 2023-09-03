@@ -11,5 +11,12 @@
         <attribute name="titleAlternatifVo" optional="YES" attributeType="String"/>
         <attribute name="titleFr" optional="YES" attributeType="String"/>
         <attribute name="titleVo" optional="YES" attributeType="String"/>
+        <relationship name="stars" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StarEntity" inverseName="dvd" inverseEntity="StarEntity"/>
+    </entity>
+    <entity name="StarEntity" representedClassName=".StarEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="dvd" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DVD_CoreData" inverseName="stars" inverseEntity="DVD_CoreData"/>
     </entity>
 </model>
