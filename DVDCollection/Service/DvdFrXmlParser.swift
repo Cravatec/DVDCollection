@@ -11,13 +11,24 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     var currentElement: String = ""
     var currentDVD: [String: String] = [:]
+    var currentStar: [String: String] = [:]
+    var stars: [Star] = []
     var dvds: [Dvd] = []
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-        if elementName == "dvd" {
-            currentDVD = [:]
-        }
+                if elementName == "dvd" {
+                    currentDVD = [:]
+                    stars = []
+                } else if elementName == "star" {
+                    currentStar = [:]
+                    if let type = attributeDict["type"] {
+                        currentStar["type"] = type
+                    }
+                    if let id = attributeDict["id"] {
+                        currentStar["id"] = id
+                    }
+                }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
@@ -25,28 +36,26 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
         if !data.isEmpty {
             switch currentElement {
             case "id", "media", "cover", "fr", "vo", "annee", "edition", "editeur", "alternatif", "alternatif_vo":
-                /*
-                 On vérifie si le dictionnaire currentDVD avec le currentElement comme key a déjà une valeur, si oui c'est à dire une valeur(string) a été tronquée et une partie est stockée(la première partie bien évidemment),
-                 alors on ajoute à cette valeur stockée la valeur suivante pour le même key (currentElement).
-                 
-                 Si non, on stocke la valeur(data) dans le dictionnaire currentDVD avec le key(currentElement) correspondant.
-                 
-                 A noter un dictionnaire ne contient que des clés ou keys uniques donc si une clé a deja une valeur et on assigne une valeur encore la première est cassée et remplacée par la dernière c'est pour cela pour le cas du key `fr` la valeur final stockée est 'égende'
-                 */
                 if currentDVD[currentElement] != nil {
                     currentDVD[currentElement]?.append(data)
                 } else {
                     currentDVD[currentElement] = data
                 }
-
-            default:
-                break
+            case "star":
+                           if currentStar["text"] != nil {
+                               currentStar["text"]?.append(data)
+                           } else {
+                               currentStar["text"] = data
+                           }
+                       default:
+                           break
             }
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "dvd" {
+            let starsObject = Stars(star: stars)
             let dvd = Dvd(id: currentDVD["id"] ?? "",
                           media: currentDVD["media"] ?? "",
                           cover: currentDVD["cover"] ?? "",
@@ -56,8 +65,17 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
                                          alternatifVo: currentDVD["alternatif_vo"] ?? ""),
                           annee: currentDVD["annee"] ?? "",
                           edition: currentDVD["edition"] ?? "",
-                          editeur: currentDVD["editeur"] ?? "")
+                          editeur: currentDVD["editeur"] ?? "",
+                          stars: starsObject)
             dvds.append(dvd)
+            stars = [] // Reset the stars array for the next DVD
+        } else if elementName == "star" {
+            let starTypeString = currentStar["type"]
+            let starType = starTypeString == "Acteur" ? TypeEnum.acteur : TypeEnum.réalisateur
+            let star = Star(type: starType,
+                            id: currentStar["id"] ?? "",
+                            text: currentStar["text"] ?? "")
+            stars.append(star)
         }
     }
 }
@@ -69,6 +87,7 @@ func xmlParserDvdFr(xml:Data){
     parser.parse()
     
     print(dvdParser.dvds)
+    print(dvdParser.stars)
     
     CoreDataStorage.shared.save(dvds: dvdParser.dvds) { result in
         switch result {
@@ -78,5 +97,4 @@ func xmlParserDvdFr(xml:Data){
             print("Failed to save DVDs: \(error)")
         }
     }
-    
 }
