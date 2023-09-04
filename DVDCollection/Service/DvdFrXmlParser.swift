@@ -66,7 +66,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
                           annee: currentDVD["annee"] ?? "",
                           edition: currentDVD["edition"] ?? "",
                           editeur: currentDVD["editeur"] ?? "",
-                          stars: starsObject)
+                          stars: starsObject, barcode: currentDVD["barcode"] ?? "")
             dvds.append(dvd)
             stars = [] // Reset the stars array for the next DVD
         } else if elementName == "star" {
@@ -80,7 +80,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     }
 }
 
-func xmlParserDvdFr(xml:Data){
+func xmlParserDvdFr(xml:Data) -> [Dvd] {
     let parser = XMLParser(data: xml)
     let dvdParser = DvdFrXmlParser()
     parser.delegate = dvdParser
@@ -89,12 +89,14 @@ func xmlParserDvdFr(xml:Data){
     print(dvdParser.dvds)
     print(dvdParser.stars)
     
-    CoreDataStorage.shared.save(dvds: dvdParser.dvds) { result in
-        switch result {
-        case .success:
-            print("DVDs saved successfully")
-        case .failure(let error):
-            print("Failed to save DVDs: \(error)")
-        }
-    }
+    return dvdParser.dvds
+    
+//    CoreDataStorage.shared.save(dvds: dvdParser.dvds, barcode: barcode) { result in
+//        switch result {
+//        case .success:
+//            print("DVDs saved successfully")
+//        case .failure(let error):
+//            print("Failed to save DVDs: \(error)")
+//        }
+//    }
 }

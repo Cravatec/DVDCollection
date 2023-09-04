@@ -28,7 +28,9 @@ struct DVDDetailView: View {
                 Text("Editor: \(dvd.editeur)")
                     .font(.footnote)
                 Text("Edition: \(dvd.edition)")
-                .font(.footnote)}
+                .font(.footnote)
+                Text("Barcode: \(dvd.barcode)")
+            }
             Text("Cover: \(dvd.cover)")
                 .font(.footnote)
             VStack(alignment: .leading) {
@@ -62,6 +64,6 @@ struct DVDDetailView: View {
 
 struct DVDDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DVDDetailView(dvd: Dvd(id: "12", media: "DVD", cover: "", titres: Titres.init(fr: "Les Azerty en été", vo: "The Qwerty", alternatif: "", alternatifVo: ""), annee: "2023", edition: "Swift", editeur: "Apple", stars: Stars(star: [Star(type: .acteur, id: "22", text: "Mr Machin")])))
+        DVDDetailView(dvd: Dvd(id: "12", media: "DVD", cover: "", titres: Titres.init(fr: "Les Azerty en été", vo: "The Qwerty", alternatif: "", alternatifVo: ""), annee: "2023", edition: "Swift", editeur: "Apple", stars: Stars(star: [Star(type: .acteur, id: "22", text: "Mr Machin")]), barcode: "12345654"))
     }
 }

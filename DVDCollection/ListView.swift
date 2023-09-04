@@ -10,8 +10,10 @@ import CodeScanner
 
 struct DVDListView: View {
     @State private var isShowingScanner = false
-    
     @StateObject private var viewModel = DVDListViewModel()
+    @StateObject private var scannerDispatcher = ScannerDispatcher()
+    
+    let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
     
     var body: some View {
         NavigationView {
@@ -41,6 +43,8 @@ struct DVDListView: View {
                     }
                 }
             }
+            .alert(isPresented: $scannerDispatcher.isShowingMessage) {
+                Alert(title: Text("This Media is already in your collection"), message: Text(scannerDispatcher.message), dismissButton: .default(Text("OK")))}
             .navigationBarTitle("DVD Collection")
             .toolbar { Button {
                 isShowingScanner = true
@@ -55,43 +59,52 @@ struct DVDListView: View {
         .padding()
         .onAppear {
             viewModel.fetchDVDs()
+            setupNotificationObserver()
         }
-    }
-    let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517"]
-    func handleScan(result: Result<ScanResult, ScanError>) {
-        isShowingScanner = false
+        }
         
-        switch result {
-        case .success(let result):
-            let barcode = result.string
-            print(barcode)
-            FetchDvdFrApi().getDvdFrInfo(barcode: barcode)
-        case .failure(let error):
-            print("Scanning failed: \(error.localizedDescription)")
-        }
-    }
-}
-
-class DVDListViewModel: ObservableObject {
-    @Published var dvds: [Dvd] = []
-    
-    func fetchDVDs() {
-        CoreDataStorage.shared.retrieve { result in
+        let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000"]
+        
+        func handleScan(result: Result<ScanResult, ScanError>) {
+            isShowingScanner = false
+            
             switch result {
-            case .success(let dvds):
-                DispatchQueue.main.async {
-                    self.dvds = dvds
-                }
+            case .success(let result):
+                let barcode = result.string
+                print(barcode)
+              //  FetchDvdFrApi().getDvdFrInfo(barcode: barcode)
+                scannerDispatcher.barcodeCheck(barcode: barcode)
             case .failure(let error):
-                print("Failed to fetch DVDs: \(error)")
+                print("Scanning failed: \(error.localizedDescription)")
+            }
+        }
+    
+    func setupNotificationObserver() {
+            NotificationCenter.default.addObserver(forName: refreshDVDListViewNotification, object: nil, queue: .main) { _ in
+                viewModel.fetchDVDs()
             }
         }
     }
-}
-
-struct DVDListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DVDListView()
+    
+    class DVDListViewModel: ObservableObject {
+        @Published var dvds: [Dvd] = []
+        
+        func fetchDVDs() {
+            CoreDataStorage.shared.retrieve { result in
+                switch result {
+                case .success(let dvds):
+                    DispatchQueue.main.async {
+                        self.dvds = dvds
+                    }
+                case .failure(let error):
+                    print("Failed to fetch DVDs: \(error)")
+                }
+            }
+        }
     }
-}
-
+    
+    struct DVDListView_Previews: PreviewProvider {
+        static var previews: some View {
+            DVDListView()
+        }
+    }

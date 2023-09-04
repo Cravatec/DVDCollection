@@ -10,7 +10,7 @@ import CoreData
 
 protocol StorageService {
 
-    func save(dvds: [Dvd], completion: @escaping (Result<Void, Error>) -> Void)
+    func save(dvds: [Dvd], barcode: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func retrieve(completion: (Result<[Dvd], Error>) -> Void)
     
@@ -36,7 +36,7 @@ final class CoreDataStorage: StorageService {
         return persistentContainer.viewContext
     }
     
-    func save(dvds: [Dvd], completion: @escaping (Result<Void, Error>) -> Void) {
+    func save(dvds: [Dvd], barcode: String, completion: @escaping (Result<Void, Error>) -> Void) {
         context.perform {
             do {
                 for dvd in dvds {
@@ -51,6 +51,7 @@ final class CoreDataStorage: StorageService {
                     dvdEntity.titleAlternatifVo = dvd.titres.alternatifVo
                     dvdEntity.editeur = dvd.editeur
                     dvdEntity.edition = dvd.edition
+                    dvdEntity.barcode = barcode
                     
                     for star in dvd.stars.star {
                         let starEntity = StarEntity(context: self.context)
@@ -86,6 +87,7 @@ final class CoreDataStorage: StorageService {
                 let editeur = result.value(forKey: "editeur") as? String ?? ""
                 let alternatif = result.value(forKey: "titleAlternatif") as? String ?? ""
                 let alternatifVo = result.value(forKey: "titleAlternatifVo") as? String ?? ""
+                let barcode = result.value(forKey: "barcode") as? String ?? ""
                 var stars: [Star] = []
                             if let starEntities = result.value(forKey: "stars") as? Set<NSManagedObject> {
                                 for starEntity in starEntities {
@@ -108,7 +110,7 @@ final class CoreDataStorage: StorageService {
                                              alternatifVo: alternatifVo),
                               annee: annee,
                               edition: edition,
-                              editeur: editeur, stars: Stars(star: stars))
+                              editeur: editeur, stars: Stars(star: stars), barcode: barcode)
                 dvds.append(dvd)
             }
             completion(.success(dvds))
@@ -132,4 +134,18 @@ final class CoreDataStorage: StorageService {
             completion(.failure(error))
         }
     }
+    
+    func isBarcodeExists(barcode: String) -> Bool {
+        let context = CoreDataStorage.shared.context
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DVD_CoreData")
+        fetchRequest.predicate = NSPredicate(format: "barcode == %@", barcode)
+        do {
+            let count = try context.count(for: fetchRequest)
+            return count > 0
+        } catch {
+            print("Error checking for barcode existence: \(error.localizedDescription)")
+            return false
+        }
+    }
+
 }

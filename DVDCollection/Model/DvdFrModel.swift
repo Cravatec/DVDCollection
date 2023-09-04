@@ -26,6 +26,7 @@ struct Dvd: Identifiable, Decodable {
     let edition: String
     let editeur: String
     let stars: Stars
+    let barcode: String
 }
 
 // MARK: - Stars
