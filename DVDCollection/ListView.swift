@@ -94,7 +94,7 @@ struct DVDListView: View {
                 switch result {
                 case .success(let dvds):
                     DispatchQueue.main.async {
-                        self.dvds = dvds
+                        self.dvds = dvds.sorted(by: { $0.titres.fr < $1.titres.fr })
                     }
                 case .failure(let error):
                     print("Failed to fetch DVDs: \(error)")
