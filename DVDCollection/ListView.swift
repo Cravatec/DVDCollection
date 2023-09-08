@@ -18,28 +18,15 @@ struct DVDListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.dvds, id: \.id) { dvd in
-                NavigationLink(destination: DVDDetailView(dvd: dvd)) {
-                    HStack {
-                        VStack {
-                            Image(systemName: "film").imageScale(.large)
-                            Text(dvd.media)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        VStack(alignment: .leading) {
-                            Text(dvd.titres.fr)
-                                .font(.headline)
-                            Text(dvd.titres.vo)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                                .lineLimit(1)
-                                .padding(.trailing)
-                            Text(dvd.annee)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            Text(dvd.edition).font(.subheadline)
-                                .foregroundColor(.gray)
+            VStack {
+                SearchBar(text: $searchText, placeholder: "Search DVDs")
+                
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
+                        ForEach(searchText.isEmpty ? viewModel.dvds : viewModel.filteredDvds(searchText: searchText), id: \.id) { dvd in
+                            NavigationLink(destination: DVDDetailView(dvd: dvd)) {
+                                DVDGridItem(dvd: dvd)
+                            }
                         }
                     }
                     .padding()
@@ -85,6 +72,60 @@ struct DVDListView: View {
         }
     }
 }
+    struct DVDGridItem: View {
+        let dvd: Dvd
+
+        var body: some View {
+            HStack {
+                VStack {
+                    Image(systemName: "film").imageScale(.large)
+                    Text(dvd.media)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                VStack(alignment: .leading) {
+                    Text(dvd.titres.fr)
+                        .font(.headline)
+                    Text(dvd.titres.vo)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                        .padding(.trailing)
+                    Text(dvd.annee)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    Text(dvd.edition).font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+    }
+
+    struct SearchBar: View {
+        @Binding var text: String
+        var placeholder: String
+        
+        var body: some View {
+            HStack {
+                TextField(placeholder, text: $text)
+                    .padding(8)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
+                    .padding([.leading, .trailing], 4)
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
+                Button(action: {
+                    text = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                        .padding(4)
+                }
+                .padding(.trailing, 8)
+                .opacity(text.isEmpty ? 0 : 1)
+            }
+        }
+    }
 
 class DVDListViewModel: ObservableObject {
     @Published var dvds: [Dvd] = []
