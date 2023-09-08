@@ -12,6 +12,7 @@ struct DVDListView: View {
     @State private var isShowingScanner = false
     @StateObject private var viewModel = DVDListViewModel()
     @StateObject private var scannerDispatcher = ScannerDispatcher()
+    @State private var searchText = ""
     
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
     
@@ -41,6 +42,7 @@ struct DVDListView: View {
                                 .foregroundColor(.gray)
                         }
                     }
+                    .padding()
                 }
             }
             .alert(isPresented: $scannerDispatcher.isShowingMessage) {
@@ -77,7 +79,6 @@ struct DVDListView: View {
             print("Scanning failed: \(error.localizedDescription)")
         }
     }
-    
     func setupNotificationObserver() {
         NotificationCenter.default.addObserver(forName: refreshDVDListViewNotification, object: nil, queue: .main) { _ in
             viewModel.fetchDVDs()
@@ -100,6 +101,14 @@ class DVDListViewModel: ObservableObject {
             }
         }
     }
+    func filteredDvds(searchText: String) -> [Dvd] {
+            if searchText.isEmpty {
+                return dvds // Return all DVDs if searchText is empty
+            } else {
+                // Filter DVDs based on the searchText
+                return dvds.filter { $0.titres.fr.localizedCaseInsensitiveContains(searchText) }
+            }
+        }
 }
 
 struct DVDListView_Previews: PreviewProvider {
