@@ -26,23 +26,23 @@ class ScannerDispatcher: ObservableObject {
             return
         }
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
-                switch result {
-                case .success(let xmlData):
-                    let dvds = parseDvdFrAPIResponse(xml: xmlData)
-                    savingDvd(dvds: dvds, barcode: barcode)
-                case .failure(_):
-                    message = "Media not found for the given barcode."
-                    isShowingMessage = true
-                }
+            switch result {
+            case .success(let xmlData):
+                let dvds = parseDvdFrAPIResponse(xml: xmlData)
+                savingDvd(dvds: dvds, barcode: barcode)
+            case .failure(_):
+                message = "Media not found for the given barcode."
+                isShowingMessage = true
             }
+        }
     }
     
-
+    
     func parseDvdFrAPIResponse(xml: Data) -> [Dvd] {
         let dvds = xmlParserDvdFr(xml: xml)
         return dvds
     }
-
+    
     func savingDvd(dvds: [Dvd], barcode: String) {
         let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
         
@@ -53,7 +53,7 @@ class ScannerDispatcher: ObservableObject {
                 // Refresh the list view
                 NotificationCenter.default.post(name: refreshDVDListViewNotification, object: nil)
                 // Show the DVD Detail View
-//                isShowingDVDDetailView = true
+                //                isShowingDVDDetailView = true
             case .failure(let error):
                 print("Failed to save DVD data: \(error.localizedDescription)")
                 message = "Failed to save DVD data: \(error.localizedDescription)"

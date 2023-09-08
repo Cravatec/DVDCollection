@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol StorageService {
-
+    
     func save(dvds: [Dvd], barcode: String, completion: @escaping (Result<Void, Error>) -> Void)
     
     func retrieve(completion: (Result<[Dvd], Error>) -> Void)
@@ -55,11 +55,11 @@ final class CoreDataStorage: StorageService {
                     
                     for star in dvd.stars.star {
                         let starEntity = StarEntity(context: self.context)
-                                        starEntity.type = star.type.rawValue
-                                        starEntity.id = star.id
-                                        starEntity.text = star.text
-                                        dvdEntity.addToStars(starEntity)
-                                    }
+                        starEntity.type = star.type.rawValue
+                        starEntity.id = star.id
+                        starEntity.text = star.text
+                        dvdEntity.addToStars(starEntity)
+                    }
                 }
                 
                 try self.context.save()
@@ -89,17 +89,17 @@ final class CoreDataStorage: StorageService {
                 let alternatifVo = result.value(forKey: "titleAlternatifVo") as? String ?? ""
                 let barcode = result.value(forKey: "barcode") as? String ?? ""
                 var stars: [Star] = []
-                            if let starEntities = result.value(forKey: "stars") as? Set<NSManagedObject> {
-                                for starEntity in starEntities {
-                                    let typeString = starEntity.value(forKey: "type") as? String ?? ""
-                                    let type = TypeEnum(rawValue: typeString) ?? .acteur
-                                    let id = starEntity.value(forKey: "id") as? String ?? ""
-                                    let text = starEntity.value(forKey: "text") as? String ?? ""
-                                    let star = Star(type: type, id: id, text: text)
-                                    stars.append(star)
-                                }
-                            }
-
+                if let starEntities = result.value(forKey: "stars") as? Set<NSManagedObject> {
+                    for starEntity in starEntities {
+                        let typeString = starEntity.value(forKey: "type") as? String ?? ""
+                        let type = TypeEnum(rawValue: typeString) ?? .acteur
+                        let id = starEntity.value(forKey: "id") as? String ?? ""
+                        let text = starEntity.value(forKey: "text") as? String ?? ""
+                        let star = Star(type: type, id: id, text: text)
+                        stars.append(star)
+                    }
+                }
+                
                 
                 let dvd = Dvd(id: id,
                               media: media,
@@ -147,5 +147,5 @@ final class CoreDataStorage: StorageService {
             return false
         }
     }
-
+    
 }

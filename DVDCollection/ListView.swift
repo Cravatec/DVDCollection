@@ -61,50 +61,49 @@ struct DVDListView: View {
             viewModel.fetchDVDs()
             setupNotificationObserver()
         }
-        }
+    }
+    
+    let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000"]
+    
+    func handleScan(result: Result<ScanResult, ScanError>) {
+        isShowingScanner = false
         
-        let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000"]
-        
-        func handleScan(result: Result<ScanResult, ScanError>) {
-            isShowingScanner = false
-            
-            switch result {
-            case .success(let result):
-                let barcode = result.string
-                print(barcode)
-              //  FetchDvdFrApi().getDvdFrInfo(barcode: barcode)
-                scannerDispatcher.barcodeCheck(barcode: barcode)
-            case .failure(let error):
-                print("Scanning failed: \(error.localizedDescription)")
-            }
+        switch result {
+        case .success(let result):
+            let barcode = result.string
+            print(barcode)
+            scannerDispatcher.barcodeCheck(barcode: barcode)
+        case .failure(let error):
+            print("Scanning failed: \(error.localizedDescription)")
         }
+    }
     
     func setupNotificationObserver() {
-            NotificationCenter.default.addObserver(forName: refreshDVDListViewNotification, object: nil, queue: .main) { _ in
-                viewModel.fetchDVDs()
-            }
+        NotificationCenter.default.addObserver(forName: refreshDVDListViewNotification, object: nil, queue: .main) { _ in
+            viewModel.fetchDVDs()
         }
     }
+}
+
+class DVDListViewModel: ObservableObject {
+    @Published var dvds: [Dvd] = []
     
-    class DVDListViewModel: ObservableObject {
-        @Published var dvds: [Dvd] = []
-        
-        func fetchDVDs() {
-            CoreDataStorage.shared.retrieve { result in
-                switch result {
-                case .success(let dvds):
-                    DispatchQueue.main.async {
-                        self.dvds = dvds.sorted(by: { $0.titres.fr < $1.titres.fr })
-                    }
-                case .failure(let error):
-                    print("Failed to fetch DVDs: \(error)")
+    func fetchDVDs() {
+        CoreDataStorage.shared.retrieve { result in
+            switch result {
+            case .success(let dvds):
+                DispatchQueue.main.async {
+                    self.dvds = dvds.sorted(by: { $0.titres.fr < $1.titres.fr })
                 }
+            case .failure(let error):
+                print("Failed to fetch DVDs: \(error)")
             }
         }
     }
-    
-    struct DVDListView_Previews: PreviewProvider {
-        static var previews: some View {
-            DVDListView()
-        }
+}
+
+struct DVDListView_Previews: PreviewProvider {
+    static var previews: some View {
+        DVDListView()
     }
+}

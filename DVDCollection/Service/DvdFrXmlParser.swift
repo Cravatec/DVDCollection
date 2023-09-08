@@ -17,18 +17,18 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-                if elementName == "dvd" {
-                    currentDVD = [:]
-                    stars = []
-                } else if elementName == "star" {
-                    currentStar = [:]
-                    if let type = attributeDict["type"] {
-                        currentStar["type"] = type
-                    }
-                    if let id = attributeDict["id"] {
-                        currentStar["id"] = id
-                    }
-                }
+        if elementName == "dvd" {
+            currentDVD = [:]
+            stars = []
+        } else if elementName == "star" {
+            currentStar = [:]
+            if let type = attributeDict["type"] {
+                currentStar["type"] = type
+            }
+            if let id = attributeDict["id"] {
+                currentStar["id"] = id
+            }
+        }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
@@ -42,13 +42,13 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
                     currentDVD[currentElement] = data
                 }
             case "star":
-                           if currentStar["text"] != nil {
-                               currentStar["text"]?.append(data)
-                           } else {
-                               currentStar["text"] = data
-                           }
-                       default:
-                           break
+                if currentStar["text"] != nil {
+                    currentStar["text"]?.append(data)
+                } else {
+                    currentStar["text"] = data
+                }
+            default:
+                break
             }
         }
     }
@@ -90,13 +90,4 @@ func xmlParserDvdFr(xml:Data) -> [Dvd] {
     print(dvdParser.stars)
     
     return dvdParser.dvds
-    
-//    CoreDataStorage.shared.save(dvds: dvdParser.dvds, barcode: barcode) { result in
-//        switch result {
-//        case .success:
-//            print("DVDs saved successfully")
-//        case .failure(let error):
-//            print("Failed to save DVDs: \(error)")
-//        }
-//    }
 }

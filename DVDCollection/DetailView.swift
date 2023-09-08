@@ -21,14 +21,13 @@ struct DVDDetailView: View {
             Text("Original Title: \(dvd.titres.vo)")
             HStack {
                 Text("Alternative Title: \(dvd.titres.alternatif)\(dvd.titres.alternatifVo)")
-                Text("Year: \(dvd.annee)")
-                    
+                Text("Year: \(dvd.annee)") 
             }.font(.subheadline)
             HStack {
                 Text("Editor: \(dvd.editeur)")
                     .font(.footnote)
                 Text("Edition: \(dvd.edition)")
-                .font(.footnote)
+                    .font(.footnote)
                 Text("Barcode: \(dvd.barcode)")
             }
             Text("Cover: \(dvd.cover)")
@@ -54,9 +53,7 @@ struct DVDDetailView: View {
                     }
                 }
             }
-
         }
-        
         .padding()
         .navigationBarTitle(dvd.titres.fr)
     }

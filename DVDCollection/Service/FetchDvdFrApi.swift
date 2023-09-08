@@ -27,29 +27,6 @@ class FetchDvdFrApi {
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         
-        /* Start a new Task */
-        //        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-        //            if (error == nil) {
-        //                // Success
-        //                let statusCode = (response as! HTTPURLResponse).statusCode
-        //                print("URL Session Task Succeeded: HTTP \(statusCode)")
-        //                guard let xmlData = data else {return}
-        //                //                do {
-        //                print("xmlData: \(xmlData)")
-        //                xmlParserDvdFr(xml: xmlData)
-        //                //                } catch {
-        //                //                    print (error)
-        //                //                }
-        //            }
-        //            else {
-        //                // Failure
-        //                print("URL Session Task Failed: %@", error!.localizedDescription);
-        //            }
-        //        })
-        //        task.resume()
-        //        session.finishTasksAndInvalidate()
-        //    }
-        //}
         let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
                 // Failure
@@ -62,14 +39,6 @@ class FetchDvdFrApi {
                 return
             }
             completion(.success(data))
-            // Process the data and parse it into DVD objects
-         //   ScannerDispatcher.self().parseDvdFrAPIResponse(xml: data)
-            
-//            if dvds.isEmpty {
-//                completion(.failure(error))
-//            } else {
-//                completion(.success(dvds))
-//            }
         }
         task.resume()
         session.finishTasksAndInvalidate()
