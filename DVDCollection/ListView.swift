@@ -154,6 +154,15 @@ class DVDListViewModel: ObservableObject {
 
 struct DVDListView_Previews: PreviewProvider {
     static var previews: some View {
-        DVDListView()
+        let viewModel = DVDListViewModel()
+        viewModel.dvds = [
+            Dvd(id: "123", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD", vo: "Fake DVD Title", alternatif: "Titre Alternatif", alternatifVo: "Alternate Title"), annee: "2023", edition: "Édition THX", editeur: "Criterion", stars: Stars(star: [
+                                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
+                                Star(type: .acteur, id: "2", text: "Jean Reno"),
+                                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
+                            ]), barcode: "5051889638940")
+        ]
+        return DVDListView()
+            .environmentObject(viewModel)
     }
 }
