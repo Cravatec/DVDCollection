@@ -50,8 +50,8 @@
 		224CF8B42A9FB412006DD44E /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		224CF8B62A9FB445006DD44E /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrXmlParser.swift; sourceTree = "<group>"; };
-		227DB4992AA4745A00D2AD7D /* StarEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StarEntity+CoreDataClass.swift"; path = "DVDCollection/Model/StarEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		227DB49A2AA4745A00D2AD7D /* StarEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "StarEntity+CoreDataProperties.swift"; path = "DVDCollection/Model/StarEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		227DB4992AA4745A00D2AD7D /* StarEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		227DB49A2AA4745A00D2AD7D /* StarEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StarEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		22908B952A9CD08D0060ACA7 /* DVDCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DVDCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDCollectionApp.swift; sourceTree = "<group>"; };
 		22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,8 +106,10 @@
 		2200B0E42A9E2A13008B7E33 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */,
 				22AC62BC2A9F486E00085927 /* DVD_CoreData.xcdatamodeld */,
+				2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */,
+				227DB4992AA4745A00D2AD7D /* StarEntity+CoreDataClass.swift */,
+				227DB49A2AA4745A00D2AD7D /* StarEntity+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -115,8 +117,6 @@
 		22908B8C2A9CD08D0060ACA7 = {
 			isa = PBXGroup;
 			children = (
-				227DB4992AA4745A00D2AD7D /* StarEntity+CoreDataClass.swift */,
-				227DB49A2AA4745A00D2AD7D /* StarEntity+CoreDataProperties.swift */,
 				22908B972A9CD08D0060ACA7 /* DVDCollection */,
 				22908BA92A9CD08E0060ACA7 /* DVDCollectionTests */,
 				22908BB32A9CD08E0060ACA7 /* DVDCollectionUITests */,
@@ -479,6 +479,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan barcodes";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -490,7 +491,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
@@ -518,6 +519,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan barcodes";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -529,7 +531,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.4;
