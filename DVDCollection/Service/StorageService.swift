@@ -111,7 +111,9 @@ final class CoreDataStorage: StorageService {
                                              alternatifVo: alternatifVo),
                               annee: annee,
                               edition: edition,
-                              editeur: editeur, stars: Stars(star: stars), barcode: barcode)
+                              editeur: editeur,
+                              stars: Stars(star: stars),
+                              barcode: barcode)
                 dvds.append(dvd)
             }
             completion(.success(dvds))
@@ -150,24 +152,24 @@ final class CoreDataStorage: StorageService {
     }
     
     func update(dvd: Dvd, coverImageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
-            let request: NSFetchRequest<DVD_CoreData> = DVD_CoreData.fetchRequest()
-            request.predicate = NSPredicate(format: "id == %@", dvd.id)
+        let request: NSFetchRequest<DVD_CoreData> = DVD_CoreData.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", dvd.id)
+        
+        do {
+            let results = try context.fetch(request)
             
-            do {
-                let results = try context.fetch(request)
+            if let dvdCoreData = results.first {
+                dvdCoreData.coverImageData = coverImageData
                 
-                if let dvdCoreData = results.first {
-                    dvdCoreData.coverImageData = coverImageData
-                    
-                    try context.save()
-                    
-                    completion(.success(()))
-                } else {
-                    completion(.failure(NSError(domain: "UpdateError", code: 0, userInfo: nil)))
-                }
-            } catch {
-                completion(.failure(error))
+                try context.save()
+                
+                completion(.success(()))
+            } else {
+                completion(.failure(NSError(domain: "UpdateError", code: 0, userInfo: nil)))
             }
+        } catch {
+            completion(.failure(error))
         }
+    }
     
 }

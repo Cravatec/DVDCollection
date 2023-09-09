@@ -55,7 +55,7 @@ class ScannerDispatcher: ObservableObject {
                 // Refresh the list view
                 NotificationCenter.default.post(name: refreshDVDListViewNotification, object: nil)
                 
-                // save url cover into data image in CoreData
+                // fetch coverURL to save into data image in CoreData
                 if let firstDvd = dvds.first {
                     if let coverURL = URL(string: firstDvd.cover) {
                         downloadAndSaveImage(from: coverURL, into: firstDvd) { imageResult in

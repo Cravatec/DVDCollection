@@ -66,7 +66,8 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
                           annee: currentDVD["annee"] ?? "",
                           edition: currentDVD["edition"] ?? "",
                           editeur: currentDVD["editeur"] ?? "",
-                          stars: starsObject, barcode: currentDVD["barcode"] ?? "")
+                          stars: starsObject,
+                          barcode: currentDVD["barcode"] ?? "")
             dvds.append(dvd)
             stars = [] // Reset the stars array for the next DVD
         } else if elementName == "star" {
