@@ -18,7 +18,7 @@ struct DVDListView: View {
     
     var body: some View {
         NavigationView {
-            VStack(){
+            VStack(spacing: 5){
                 HStack {
                     Text("DVD Collection")
                         .font(.body)
@@ -37,7 +37,7 @@ struct DVDListView: View {
                     SearchBar(text: $searchText, placeholder: "Search DVDs")
                     
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
                             ForEach(searchText.isEmpty ? viewModel.dvds : viewModel.filteredDvds(searchText: searchText), id: \.id) { dvd in
                                 NavigationLink(destination: DVDDetailView(dvd: dvd)) {
                                     DVDGridItem(dvd: dvd)
@@ -49,23 +49,6 @@ struct DVDListView: View {
                 }
                 .alert(isPresented: $scannerDispatcher.isShowingMessage) {
                     Alert(title: Text("⚠️ Attention ⚠️"), message: Text(scannerDispatcher.message), dismissButton: .default(Text("OK")))}
-                //  .navigationBarTitle("DVD Collection")
-                .toolbar {
-                    //                HStack {
-                    //                    Text("DVD Collection")
-                    //                        .font(.body)
-                    //                        .fontWeight(.bold)
-                    //                    Spacer()
-                    //                    Button {
-                    //                        isShowingScanner = true
-                    //                    } label: {
-                    //                        Label("Scan", systemImage: "barcode.viewfinder")
-                    //                            .sheet(isPresented: $isShowingScanner) {
-                    //                                CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: simulatedBarcode.randomElement()!, shouldVibrateOnSuccess: true, completion: handleScan)
-                    //                            }
-                    //                    }
-                    //                }
-                }
             }
         }
         .padding()
@@ -75,7 +58,7 @@ struct DVDListView: View {
         }
     }
     
-    let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000", "5051889700371", "5051889638957"]
+    let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000", "5051889700371", "5051889638957", "3333293820435", "7321950745685", "7321950809325", "5051889257400"]
     
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
@@ -99,35 +82,40 @@ struct DVDGridItem: View {
     let dvd: Dvd
     
     var body: some View {
-        HStack {
+        VStack {
             VStack {
                 if let data = dvd.coverImageData, let uiImage = UIImage(data: data) {
                     Image(uiImage: uiImage)
+                        .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .frame(height: 200, alignment: .bottom)
+                        .clipped()
+                        .overlay(
+                            GeometryReader { media in
+                                            Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
+                                    .background(Color.white).cornerRadius(30)
+                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.95)
+                                        }
+                                    )
                 } else {
                     Image(systemName: "film").imageScale(.large)
                 }
-
-                Text(dvd.media)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
             }
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 Text(dvd.titres.fr)
-                    .font(.headline)
-                Text(dvd.titres.vo)
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .lineLimit(1)
-                    .padding(.trailing)
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .frame(alignment: .center)
+                    .clipped()
                 Text(dvd.annee)
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Text(dvd.edition).font(.subheadline)
-                    .foregroundColor(.gray)
             }
-        }
+        }.frame(width: 200, height: 300)
+            .clipped()
+           
     }
 }
 
@@ -196,7 +184,7 @@ struct DVDListView_Previews: PreviewProvider {
 //                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
 //            ]), barcode: "3701432014517")]
 //        return DVDListView().environmentObject(viewModel)
-        
+//
 //        DVDGridItem(dvd: Dvd(id: "123", media: "DVD", cover: "cover", titres: Titres(fr: "Hello", vo: "Hella", alternatif: "Toto", alternatifVo: "Titi"), annee: "2023", edition: "THX", editeur: "Criterion", stars: Stars(star: [
 //                        Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
 //                        Star(type: .acteur, id: "2", text: "Jean Reno"),
