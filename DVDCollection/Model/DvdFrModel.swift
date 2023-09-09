@@ -21,6 +21,7 @@ struct Dvd: Identifiable, Decodable {
     let id: String
     let media: String
     let cover: String
+    var coverImageData: Data?
     let titres: Titres
     let annee: String
     let edition: String

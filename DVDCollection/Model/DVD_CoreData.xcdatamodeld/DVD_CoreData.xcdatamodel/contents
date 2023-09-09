@@ -4,6 +4,7 @@
         <attribute name="annee" optional="YES" attributeType="String"/>
         <attribute name="barcode" optional="YES" attributeType="String"/>
         <attribute name="cover" optional="YES" attributeType="String"/>
+        <attribute name="coverImageData" optional="YES" attributeType="Binary"/>
         <attribute name="editeur" optional="YES" attributeType="String"/>
         <attribute name="edition" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>

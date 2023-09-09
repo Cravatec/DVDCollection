@@ -88,6 +88,7 @@ final class CoreDataStorage: StorageService {
                 let alternatif = result.value(forKey: "titleAlternatif") as? String ?? ""
                 let alternatifVo = result.value(forKey: "titleAlternatifVo") as? String ?? ""
                 let barcode = result.value(forKey: "barcode") as? String ?? ""
+                let coverImageData = result.value(forKey: "coverImageData") as? Data
                 var stars: [Star] = []
                 if let starEntities = result.value(forKey: "stars") as? Set<NSManagedObject> {
                     for starEntity in starEntities {
@@ -103,7 +104,7 @@ final class CoreDataStorage: StorageService {
                 
                 let dvd = Dvd(id: id,
                               media: media,
-                              cover: cover,
+                              cover: cover, coverImageData: coverImageData,
                               titres: Titres(fr: fr,
                                              vo: vo,
                                              alternatif: alternatif,
@@ -147,5 +148,26 @@ final class CoreDataStorage: StorageService {
             return false
         }
     }
+    
+    func update(dvd: Dvd, coverImageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+            let request: NSFetchRequest<DVD_CoreData> = DVD_CoreData.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", dvd.id)
+            
+            do {
+                let results = try context.fetch(request)
+                
+                if let dvdCoreData = results.first {
+                    dvdCoreData.coverImageData = coverImageData
+                    
+                    try context.save()
+                    
+                    completion(.success(()))
+                } else {
+                    completion(.failure(NSError(domain: "UpdateError", code: 0, userInfo: nil)))
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        }
     
 }
