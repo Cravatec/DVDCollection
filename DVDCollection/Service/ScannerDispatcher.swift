@@ -16,7 +16,7 @@ class ScannerDispatcher: ObservableObject {
     
     func barcodeCheck(barcode: String) {
         if CoreDataStorage.shared.isBarcodeExists(barcode: barcode) {
-            // Barcode already exists in CoreData, show a message
+            // if barcode already exists in CoreData, show a message
             message = "This media is already in your collection."
             let seconds = 1.0
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
@@ -31,7 +31,7 @@ class ScannerDispatcher: ObservableObject {
                 let dvds = parseDvdFrAPIResponse(xml: xmlData)
                 savingDvd(dvds: dvds, barcode: barcode)
             case .failure(_):
-                message = "Media not found for the given barcode."
+                message = "Sorry, can't download information of this media for the moment. Try again later."
                 isShowingMessage = true
             }
         }
