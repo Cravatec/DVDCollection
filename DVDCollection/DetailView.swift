@@ -30,28 +30,23 @@ struct DVDDetailView: View {
                 Image(systemName: "film")
                     .resizable()
                     .imageScale(.large)
-                    .frame(width: 100, height: 150)
+                    .frame(width: 150, height: 250)
             }
-//            Image(systemName: "film")
-//                .resizable()
-//                .frame(width: 100, height: 150)
-            Text("Title: \(dvd.titres.fr)")
-                .font(.title)
-            Text("Media: \(dvd.media)")
-            Text("Original Title: \(dvd.titres.vo)")
+            Text("\(dvd.titres.fr)")
+                .font(.title3).multilineTextAlignment(.center).lineLimit(3)
+            Text("Original Title: \(dvd.titres.vo)").font(.caption).opacity(dvd.titres.vo.isEmpty ? 0 : 1)
             HStack {
-                Text("Alternative Title: \(dvd.titres.alternatif)\(dvd.titres.alternatifVo)")
-                Text("Year: \(dvd.annee)") 
+                Text("Alternative Title: \(dvd.titres.alternatif)\(dvd.titres.alternatifVo)").opacity(dvd.titres.alternatif.isEmpty || dvd.titres.alternatifVo.isEmpty ? 0 : 1)
             }.font(.subheadline)
             HStack {
+                Text("Year: \(dvd.annee)").opacity(dvd.annee.isEmpty ? 0 : 1)
+                Image(systemName: "barcode")
+                Text(": \(dvd.barcode)")
+            }.font(.footnote).frame(width: 500, height: 10, alignment: .center)
+            HStack {
                 Text("Editor: \(dvd.editeur)")
-                    .font(.footnote)
-                Text("Edition: \(dvd.edition)")
-                    .font(.footnote)
-                Text("Barcode: \(dvd.barcode)")
-            }
-            Text("Cover: \(dvd.cover)")
-                .font(.footnote)
+                Text("Edition: \(dvd.edition)").opacity(dvd.edition.isEmpty ? 0 : 1)
+            }.font(.footnote).frame(width: 500, height: 10, alignment: .center)
             VStack(alignment: .leading) {
                 Text("Stars:")
                     .font(.headline)
@@ -74,13 +69,13 @@ struct DVDDetailView: View {
                 }
             }
         }
-        .padding()
+//        .padding()
         .navigationBarTitle(dvd.titres.fr)
     }
 }
 
 struct DVDDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DVDDetailView(dvd: Dvd(id: "12", media: "DVD", cover: "", titres: Titres.init(fr: "Les Azerty en été", vo: "The Qwerty", alternatif: "", alternatifVo: ""), annee: "2023", edition: "Swift", editeur: "Apple", stars: Stars(star: [Star(type: .acteur, id: "22", text: "Mr Machin")]), barcode: "12345654"))
+        DVDDetailView(dvd: Dvd(id: "12", media: "DVD", cover: "", titres: Titres.init(fr: "Y a-t-il un pilote dans l'avion ? + Y a-t-il enfin un pilote dans l'avion ? 2", vo: "Airplane! + Airplane II: The Sequel", alternatif: "", alternatifVo: ""), annee: "2023", edition: "Swift", editeur: "Apple", stars: Stars(star: [Star(type: .acteur, id: "22", text: "Mr Machin")]), barcode: "3607483270608"))
     }
 }
