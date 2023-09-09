@@ -104,7 +104,8 @@ struct DVDGridItem: View {
             }
             VStack(alignment: .center) {
                 Text(dvd.titres.fr)
-                    .font(.callout)
+                    .font(.footnote)
+                    .fontWeight(.regular)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .frame(alignment: .center)
@@ -113,8 +114,9 @@ struct DVDGridItem: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }.frame(width: 170, height: 300)
+        }.frame(minWidth: 170, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
             .clipped()
+//            .shadow(color: .gray, radius: 8, x: 0, y: 4)
         
     }
 }
@@ -192,5 +194,11 @@ struct DVDListView_Previews: PreviewProvider {
         //                    ]), barcode: "12344323"))
         
         DVDListView()
+    }
+}
+
+struct Previews_DVDListView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
