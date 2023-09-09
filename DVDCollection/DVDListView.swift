@@ -1,5 +1,5 @@
 //
-//  ListView.swift
+//  DVDListView.swift
 //  DVDCollection
 //
 //  Created by Sam on 30/08/2023.
@@ -93,11 +93,11 @@ struct DVDGridItem: View {
                         .clipped()
                         .overlay(
                             GeometryReader { media in
-                                            Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
+                                Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
                                     .background(Color.white).cornerRadius(30)
                                     .position(x: media.size.width * 0.9, y: media.size.height * 0.95)
-                                        }
-                                    )
+                            }
+                        )
                 } else {
                     Image(systemName: "film").imageScale(.large)
                 }
@@ -115,7 +115,7 @@ struct DVDGridItem: View {
             }
         }.frame(width: 170, height: 300)
             .clipped()
-           
+        
     }
 }
 
@@ -171,25 +171,25 @@ class DVDListViewModel: ObservableObject {
 
 struct DVDListView_Previews: PreviewProvider {
     static var previews: some View {
-//        let viewModel = DVDListViewModel()
-//        viewModel.dvds = [
-//Dvd(id: "123", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD", vo: "Fake DVD Title", alternatif: "Titre Alternatif", alternatifVo: "Alternate Title"), annee: "2023", edition: "Édition THX", editeur: "Criterion", stars: Stars(star: [
-//                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-//                Star(type: .acteur, id: "2", text: "Jean Reno"),
-//                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-//            ]), barcode: "5051889638940"),
-//            Dvd(id: "231", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD 2", vo: "Fake DVD Title 2", alternatif: "Titre Alternatif 2", alternatifVo: "Alternate Title 2"), annee: "1928", edition: "Édition VHS", editeur: "Criterion", stars: Stars(star: [
-//                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-//                Star(type: .acteur, id: "2", text: "Jean Reno"),
-//                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-//            ]), barcode: "3701432014517")]
-//        return DVDListView().environmentObject(viewModel)
-//
-//        DVDGridItem(dvd: Dvd(id: "123", media: "DVD", cover: "cover", titres: Titres(fr: "Hello", vo: "Hella", alternatif: "Toto", alternatifVo: "Titi"), annee: "2023", edition: "THX", editeur: "Criterion", stars: Stars(star: [
-//                        Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-//                        Star(type: .acteur, id: "2", text: "Jean Reno"),
-//                        Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-//                    ]), barcode: "12344323"))
+        //        let viewModel = DVDListViewModel()
+        //        viewModel.dvds = [
+        //Dvd(id: "123", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD", vo: "Fake DVD Title", alternatif: "Titre Alternatif", alternatifVo: "Alternate Title"), annee: "2023", edition: "Édition THX", editeur: "Criterion", stars: Stars(star: [
+        //                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
+        //                Star(type: .acteur, id: "2", text: "Jean Reno"),
+        //                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
+        //            ]), barcode: "5051889638940"),
+        //            Dvd(id: "231", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD 2", vo: "Fake DVD Title 2", alternatif: "Titre Alternatif 2", alternatifVo: "Alternate Title 2"), annee: "1928", edition: "Édition VHS", editeur: "Criterion", stars: Stars(star: [
+        //                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
+        //                Star(type: .acteur, id: "2", text: "Jean Reno"),
+        //                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
+        //            ]), barcode: "3701432014517")]
+        //        return DVDListView().environmentObject(viewModel)
+        //
+        //        DVDGridItem(dvd: Dvd(id: "123", media: "DVD", cover: "cover", titres: Titres(fr: "Hello", vo: "Hella", alternatif: "Toto", alternatifVo: "Titi"), annee: "2023", edition: "THX", editeur: "Criterion", stars: Stars(star: [
+        //                        Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
+        //                        Star(type: .acteur, id: "2", text: "Jean Reno"),
+        //                        Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
+        //                    ]), barcode: "12344323"))
         
         DVDListView()
     }
