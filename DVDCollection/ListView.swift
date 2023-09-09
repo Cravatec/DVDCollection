@@ -101,7 +101,14 @@ struct DVDGridItem: View {
     var body: some View {
         HStack {
             VStack {
-                Image(systemName: "film").imageScale(.large)
+                if let data = dvd.coverImageData, let uiImage = UIImage(data: data) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else {
+                    Image(systemName: "film").imageScale(.large)
+                }
+
                 Text(dvd.media)
                     .font(.subheadline)
                     .foregroundColor(.gray)
