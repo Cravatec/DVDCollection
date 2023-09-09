@@ -67,7 +67,7 @@ struct DVDListView: View {
         case .success(let result):
             let barcode = result.string
             print(barcode)
-            scannerDispatcher.barcodeCheck(barcode: barcode)
+            scannerDispatcher.fetchDvdInfo(barcode)
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }
