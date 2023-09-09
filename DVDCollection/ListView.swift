@@ -89,7 +89,7 @@ struct DVDGridItem: View {
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 200, alignment: .bottom)
+                        .frame(height: 190, alignment: .bottom)
                         .clipped()
                         .overlay(
                             GeometryReader { media in
@@ -106,14 +106,14 @@ struct DVDGridItem: View {
                 Text(dvd.titres.fr)
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .lineLimit(2)
+                    .lineLimit(3)
                     .frame(alignment: .center)
                     .clipped()
                 Text(dvd.annee)
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }.frame(width: 200, height: 300)
+        }.frame(width: 170, height: 300)
             .clipped()
            
     }
