@@ -12,9 +12,29 @@ struct DVDDetailView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "film")
-                .resizable()
-                .frame(width: 100, height: 150)
+            if let data = dvd.coverImageData, let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .renderingMode(.original)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 250, alignment: .bottom)
+                    .clipped()
+                    .overlay(
+                        GeometryReader { media in
+                                        Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
+                                .background(Color.white).cornerRadius(30)
+                                .position(x: media.size.width * 0.9, y: media.size.height * 0.95)
+                                    }
+                                )
+            } else {
+                Image(systemName: "film")
+                    .resizable()
+                    .imageScale(.large)
+                    .frame(width: 100, height: 150)
+            }
+//            Image(systemName: "film")
+//                .resizable()
+//                .frame(width: 100, height: 150)
             Text("Title: \(dvd.titres.fr)")
                 .font(.title)
             Text("Media: \(dvd.media)")
