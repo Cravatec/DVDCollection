@@ -10,22 +10,11 @@ import SwiftUI
 import CoreData
 
 
-class ScannerDispatcher: ObservableObject {
+final class ScannerDispatcher: ObservableObject {
     @Published var isShowingMessage = false
-    @Published var isShowingDVDDetailView = false
     @Published var message: String = ""
     
-    func barcodeCheck(barcode: String) {
-        if CoreDataStorage.shared.isBarcodeExists(barcode: barcode) {
-            // if barcode already exists in CoreData, show a message
-            message = "This media is already in your collection."
-            let seconds = 1.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
-                isShowingMessage = true
-            }
-            
-            return
-        }
+    fileprivate func fetchDvdInfo(_ barcode: String) {
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
@@ -38,6 +27,20 @@ class ScannerDispatcher: ObservableObject {
         }
     }
     
+    func barcodeCheck(barcode: String) {
+        if CoreDataStorage.shared.isBarcodeExists(barcode: barcode) {
+            // if barcode already exists in CoreData, show a message
+            message = "This media is already in your collection."
+            let seconds = 1.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
+                isShowingMessage = true
+            }
+            return
+        }
+        fetchDvdInfo(barcode)
+    }
+    
+    
     
     func parseDvdFrAPIResponse(xml: Data) -> [Dvd] {
         let dvds = xmlParserDvdFr(xml: xml)
@@ -46,7 +49,6 @@ class ScannerDispatcher: ObservableObject {
     
     func savingDvd(dvds: [Dvd], barcode: String) {
         let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
-        //   let coverImageUrl = dvds.cover
         
         CoreDataStorage.shared.save(dvds: dvds, barcode: barcode) { [self] result in
             switch result {
