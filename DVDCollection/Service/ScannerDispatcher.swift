@@ -14,7 +14,16 @@ final class ScannerDispatcher: ObservableObject {
     @Published var isShowingMessage = false
     @Published var message: String = ""
     
-    fileprivate func fetchDvdInfo(_ barcode: String) {
+    func fetchDvdInfo(_ barcode: String) {
+        guard !isBarcodeExist(barcode) else {
+            message = "This media is already in your collection."
+            let seconds = 1.0
+                        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
+                            isShowingMessage = true
+                        }
+            return
+        }
+        isShowingMessage = false
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
@@ -27,21 +36,10 @@ final class ScannerDispatcher: ObservableObject {
         }
     }
     
-    func barcodeCheck(barcode: String) {
-        if CoreDataStorage.shared.isBarcodeExists(barcode: barcode) {
-            // if barcode already exists in CoreData, show a message
-            message = "This media is already in your collection."
-            let seconds = 1.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
-                isShowingMessage = true
-            }
-            return
-        }
-        fetchDvdInfo(barcode)
+    private func isBarcodeExist(_ barcode: String) -> Bool {
+        return CoreDataStorage.shared.isBarcodeExists(barcode: barcode)
     }
-    
-    
-    
+        
     func parseDvdFrAPIResponse(xml: Data) -> [Dvd] {
         let dvds = xmlParserDvdFr(xml: xml)
         return dvds
