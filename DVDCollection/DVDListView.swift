@@ -10,11 +10,19 @@ import CodeScanner
 
 struct DVDListView: View {
     @State private var isShowingScanner = false
-    @StateObject private var viewModel = DVDListViewModel()
-    @StateObject private var scannerDispatcher = ScannerDispatcher()
+    @State private var showAlert = false
+    @State private var currentAlert: Alert?
     @State private var searchText = ""
+    @State private var navigateToDetailView = false
+    @State private var selectedDvd: Dvd?
     
+    @StateObject private var viewModel = DVDListViewModel()
+    
+    @ObservedObject var dvdCollectionViewModel = DvdCollectionViewModel(scannerService: ScannerService())
+    
+    let scannerService = ScannerService()
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
+    var barcode = ""
     
     var body: some View {
         NavigationView {
@@ -28,16 +36,62 @@ struct DVDListView: View {
                         isShowingScanner = true
                     } label: {
                         Label("Scan", systemImage: "barcode.viewfinder")
-                            .sheet(isPresented: $isShowingScanner) {
-                                CodeScannerView(codeTypes: [.ean13], showViewfinder: true, simulatedData: simulatedBarcode.randomElement()!, shouldVibrateOnSuccess: true, completion: handleScan)
-                            }
                     }
+                }
+                .sheet(isPresented: $isShowingScanner) {
+                    CodeScannerView(codeTypes: [.ean13],
+                                    showViewfinder: true,
+                                    simulatedData: simulatedBarcode.randomElement()!,
+                                    shouldVibrateOnSuccess: true,
+                                    completion: handleScan)
+                }
+                .onChange(of: isShowingScanner) { isPresented in
+                    if !isPresented && dvdCollectionViewModel.isShowingMessage {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            dvdCollectionViewModel.isShowingMessage = false
+                            if !dvdCollectionViewModel.barcode.isEmpty {
+                                showAlert = true
+                            }
+                            let newAlert = Alert(
+                                title: Text("Error"),
+                                message: Text(dvdCollectionViewModel.message),
+                                dismissButton: .default(Text("OK"))
+                            )
+                            currentAlert = newAlert
+                            showAlert = true
+                        }
+                    }
+                }
+                .alert(isPresented: $showAlert) {
+                    let alert = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
+                    
+                    //                    if scannerService.isBarcodeExist(barcode) {
+                    let filteredDvds = filteredBarcode(barcode: barcode, dvds: viewModel.dvds) // Pass dvds array
+                    
+                    return Alert(
+                        title: Text("Attention"),
+                        message: Text("\(dvdCollectionViewModel.message)"),
+                        primaryButton: .default(Text("View DVD")) {
+                            // Handle navigation to DVDDetailView using NavigationLink
+                            let dvd = filteredDvds.first
+                            let selectedDvd = dvd
+                            navigateToDetailView = true
+                            //                                                                selectedDvd != nil
+                            NavigationLink(destination: DVDDetailView(dvd: selectedDvd!), isActive: $navigateToDetailView) {
+                                EmptyView()
+                            }
+                        },
+                        secondaryButton: .default(Text("OK"))
+                    )
+                    //                    } else {
+                    //                        return alert
+                    //                    }
                 }
                 VStack() {
                     SearchBar(text: $searchText, placeholder: "Search DVDs")
                     
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], alignment: HorizontalAlignment.center, spacing: 10) {
                             ForEach(searchText.isEmpty ? viewModel.dvds : viewModel.filteredDvds(searchText: searchText), id: \.id) { dvd in
                                 NavigationLink(destination: DVDDetailView(dvd: dvd)) {
                                     DVDGridItem(dvd: dvd)
@@ -47,8 +101,6 @@ struct DVDListView: View {
                         .padding()
                     }
                 }
-                .alert(isPresented: $scannerDispatcher.isShowingMessage) {
-                    Alert(title: Text("⚠️ Attention ⚠️"), message: Text(scannerDispatcher.message), dismissButton: .default(Text("OK")))}
             }
         }
         .padding()
@@ -62,22 +114,42 @@ struct DVDListView: View {
     
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
+        var barcode = barcode
         
         switch result {
         case .success(let result):
-            let barcode = result.string
+            barcode = result.string
             print(barcode)
-            scannerDispatcher.fetchDvdInfo(barcode)
+            scannerService.fetchDvdInfo(barcode) { [self] fetchResult in
+                switch fetchResult {
+                case .success:
+                    print("Fetch DVD info succeeded.")
+                case .failure(let error):
+                    print("Fetch DVD info failed: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        self.dvdCollectionViewModel.message = error.localizedDescription
+                        if !isShowingScanner {
+                            self.dvdCollectionViewModel.isShowingMessage = true
+                        }
+                    }
+                }
+            }
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }
     }
+    
     func setupNotificationObserver() {
         NotificationCenter.default.addObserver(forName: refreshDVDListViewNotification, object: nil, queue: .main) { _ in
             viewModel.fetchDVDs()
         }
     }
+    // Function to filter DVDs based on searchText
+    func filteredBarcode(barcode: String, dvds: [Dvd]) -> [Dvd] {
+        dvds.filter { $0.barcode.localizedCaseInsensitiveContains(barcode) }
+    }
 }
+
 struct DVDGridItem: View {
     let dvd: Dvd
     
@@ -86,7 +158,6 @@ struct DVDGridItem: View {
             VStack {
                 if let data = dvd.coverImageData, let uiImage = UIImage(data: data) {
                     Image(uiImage: uiImage)
-                        .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 190, alignment: .bottom)
@@ -94,8 +165,8 @@ struct DVDGridItem: View {
                         .overlay(
                             GeometryReader { media in
                                 Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
-                                    .background(Color.white).cornerRadius(30)
-                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.95)
+                                    .background(Color.white).cornerRadius(5)
+                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.95).shadow(radius: 1)
                             }
                         )
                 } else {
@@ -109,14 +180,14 @@ struct DVDGridItem: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .frame(alignment: .center)
-                    .clipped()
+                    .clipped().frame(maxWidth: 160)
                 Text(dvd.annee)
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }.frame(minWidth: 170, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
+        }.frame(minWidth: 170, maxWidth: .infinity, minHeight: 250, maxHeight: 300, alignment: .top)
             .clipped()
-//            .shadow(color: .gray, radius: 8, x: 0, y: 4)
+        //            .shadow(color: .gray, radius: 8, x: 0, y: 4)
         
     }
 }
@@ -144,6 +215,7 @@ struct SearchBar: View {
         }
     }
 }
+
 
 class DVDListViewModel: ObservableObject {
     @Published var dvds: [Dvd] = []
@@ -173,32 +245,6 @@ class DVDListViewModel: ObservableObject {
 
 struct DVDListView_Previews: PreviewProvider {
     static var previews: some View {
-        //        let viewModel = DVDListViewModel()
-        //        viewModel.dvds = [
-        //Dvd(id: "123", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD", vo: "Fake DVD Title", alternatif: "Titre Alternatif", alternatifVo: "Alternate Title"), annee: "2023", edition: "Édition THX", editeur: "Criterion", stars: Stars(star: [
-        //                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-        //                Star(type: .acteur, id: "2", text: "Jean Reno"),
-        //                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-        //            ]), barcode: "5051889638940"),
-        //            Dvd(id: "231", media: "DVD", cover: "image", titres: Titres(fr: "Faux Titre DVD 2", vo: "Fake DVD Title 2", alternatif: "Titre Alternatif 2", alternatifVo: "Alternate Title 2"), annee: "1928", edition: "Édition VHS", editeur: "Criterion", stars: Stars(star: [
-        //                Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-        //                Star(type: .acteur, id: "2", text: "Jean Reno"),
-        //                Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-        //            ]), barcode: "3701432014517")]
-        //        return DVDListView().environmentObject(viewModel)
-        //
-        //        DVDGridItem(dvd: Dvd(id: "123", media: "DVD", cover: "cover", titres: Titres(fr: "Hello", vo: "Hella", alternatif: "Toto", alternatifVo: "Titi"), annee: "2023", edition: "THX", editeur: "Criterion", stars: Stars(star: [
-        //                        Star(type: .acteur, id: "1", text: "Patrick Sebastion"),
-        //                        Star(type: .acteur, id: "2", text: "Jean Reno"),
-        //                        Star(type: .réalisateur, id: "3", text: "Stanley Kubrick")
-        //                    ]), barcode: "12344323"))
-        
         DVDListView()
-    }
-}
-
-struct Previews_DVDListView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
