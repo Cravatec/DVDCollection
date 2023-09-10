@@ -9,34 +9,51 @@ import Foundation
 import SwiftUI
 import CoreData
 
+final class DvdCollectionViewModel: ObservableObject {
+@Published var isShowingMessage = false
+@Published var message: String = ""
+@Published var barcode: String = ""
 
-final class ScannerDispatcher: ObservableObject {
-    @Published var isShowingMessage = false
-    @Published var message: String = ""
-    
+private let scannerService: ScannerService
+
+    init(scannerService: ScannerService) {
+           self.scannerService = scannerService
+       }
+
     func fetchDvdInfo(_ barcode: String) {
+        self.barcode = barcode
+        scannerService.fetchDvdInfo(barcode) { [weak self] result in
+             switch result {
+             case .success:
+                 self?.isShowingMessage = false
+             case .failure(let error):
+                 self?.message = error.localizedDescription
+                 self?.isShowingMessage = true
+             }
+         }
+     }
+}
+
+
+final class ScannerService: ObservableObject {
+
+    func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<(), Error>) -> Void) {
         guard !isBarcodeExist(barcode) else {
-            message = "This media is already in your collection."
-            let seconds = 1.0
-                        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [self] in
-                            isShowingMessage = true
-                        }
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This media is already in your collection."])))
             return
         }
-        isShowingMessage = false
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
                 let dvds = parseDvdFrAPIResponse(xml: xmlData)
                 savingDvd(dvds: dvds, barcode: barcode)
             case .failure(_):
-                message = "Sorry, can't download information of this media for the moment. Try again later."
-                isShowingMessage = true
+                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Sorry, can't download information of this media for the moment. Try again later."])))
             }
         }
     }
     
-    private func isBarcodeExist(_ barcode: String) -> Bool {
+     func isBarcodeExist(_ barcode: String) -> Bool {
         return CoreDataStorage.shared.isBarcodeExists(barcode: barcode)
     }
         
@@ -74,14 +91,11 @@ final class ScannerDispatcher: ObservableObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                     NotificationCenter.default.post(name: refreshDVDListViewNotification, object: nil)
                 }
-                
-                // Show the DVD Detail View
-                //                isShowingDVDDetailView = true
-                
+            
             case .failure(let error):
                 print("Failed to save DVD data: \(error.localizedDescription)")
-                message = "Failed to save DVD data: \(error.localizedDescription)"
-                isShowingMessage = true
+//              message = "Failed to save DVD data: \(error.localizedDescription)"
+//             isShowingMessage = true
             }
         }
     }
