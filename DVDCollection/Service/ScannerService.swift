@@ -12,7 +12,7 @@ import CoreData
 final class DvdCollectionViewModel: ObservableObject {
 @Published var isShowingMessage = false
 @Published var message: String = ""
-@Published var barcode: String = ""
+@Published var barcodeVM: String = ""
 
 private let scannerService: ScannerService
 
@@ -20,23 +20,24 @@ private let scannerService: ScannerService
            self.scannerService = scannerService
        }
 
-    func fetchDvdInfo(_ barcode: String) {
-        self.barcode = barcode
+    func fetchDvdInfoMessenger(_ barcode: String) {
+        self.barcodeVM = barcode
         scannerService.fetchDvdInfo(barcode) { [weak self] result in
-             switch result {
-             case .success:
-                 self?.isShowingMessage = false
-             case .failure(let error):
-                 self?.message = error.localizedDescription
-                 self?.isShowingMessage = true
-             }
-         }
-     }
+            switch result {
+            case .success(_):
+                self?.isShowingMessage = false
+            case .failure(let error):
+                self?.message = error.localizedDescription
+                self?.isShowingMessage = true
+            }
+        }
+    }
+
 }
 
 
 final class ScannerService: ObservableObject {
-
+    
     func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<(), Error>) -> Void) {
         guard !isBarcodeExist(barcode) else {
             completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This media is already in your collection."])))
@@ -94,8 +95,6 @@ final class ScannerService: ObservableObject {
             
             case .failure(let error):
                 print("Failed to save DVD data: \(error.localizedDescription)")
-//              message = "Failed to save DVD data: \(error.localizedDescription)"
-//             isShowingMessage = true
             }
         }
     }
@@ -116,7 +115,7 @@ final class ScannerService: ObservableObject {
             CoreDataStorage.shared.update(dvd: dvd, coverImageData: data) { result in
                 switch result {
                 case .success:
-                    print("Cover image saved successfully in CoreData.")
+//                    print("Cover image saved successfully in CoreData.")
                     completion(.success(()))
                 case .failure(let error):
                     print("Failed to save cover image: \(error.localizedDescription)")
@@ -124,6 +123,5 @@ final class ScannerService: ObservableObject {
                 }
             }
         }.resume()
-        
     }
 }

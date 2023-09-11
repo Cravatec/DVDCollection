@@ -22,7 +22,6 @@ struct DVDListView: View {
     
     let scannerService = ScannerService()
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
-    var barcode = ""
     
     var body: some View {
         NavigationView {
@@ -49,9 +48,9 @@ struct DVDListView: View {
                     if !isPresented && dvdCollectionViewModel.isShowingMessage {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             dvdCollectionViewModel.isShowingMessage = false
-                            if !dvdCollectionViewModel.barcode.isEmpty {
-                                showAlert = true
-                            }
+//                            if dvdCollectionViewModel.barcodeVM.isEmpty {
+//                                showAlert = true
+//                            }
                             let newAlert = Alert(
                                 title: Text("Error"),
                                 message: Text(dvdCollectionViewModel.message),
@@ -63,30 +62,26 @@ struct DVDListView: View {
                     }
                 }
                 .alert(isPresented: $showAlert) {
-                    let alert = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
-                    
-                    //                    if scannerService.isBarcodeExist(barcode) {
-                    let filteredDvds = filteredBarcode(barcode: barcode, dvds: viewModel.dvds) // Pass dvds array
-                    
-                    return Alert(
-                        title: Text("Attention"),
-                        message: Text("\(dvdCollectionViewModel.message)"),
-                        primaryButton: .default(Text("View DVD")) {
-                            // Handle navigation to DVDDetailView using NavigationLink
-                            let dvd = filteredDvds.first
-                            let selectedDvd = dvd
-                            navigateToDetailView = true
-                            //                                                                selectedDvd != nil
-                            NavigationLink(destination: DVDDetailView(dvd: selectedDvd!), isActive: $navigateToDetailView) {
-                                EmptyView()
-                            }
-                        },
-                        secondaryButton: .default(Text("OK"))
-                    )
-                    //                    } else {
-                    //                        return alert
-                    //                    }
+                    _ = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
+//                    if scannerService.isBarcodeExist(dvdCollectionViewModel.barcodeVM) {
+                        let filteredDvds = filteredBarcode(barcode: dvdCollectionViewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
+  
+                        return Alert(
+                            title: Text("Attention"),
+                            message: Text("\(dvdCollectionViewModel.message)"),
+                            primaryButton: .default(Text("View Media")) {
+                                // Handle navigation to DVDDetailView using NavigationLink
+                                selectedDvd = filteredDvds.first
+                                navigateToDetailView = true
+                                print("dvdCollectionViewModel.barcodeVM: \(dvdCollectionViewModel.barcodeVM)")
+                            },
+                            secondaryButton: .default(Text("OK"))
+                        )
+//                    } else {
+//                        return
+//                    }
                 }
+                
                 VStack() {
                     SearchBar(text: $searchText, placeholder: "Search DVDs")
                     
@@ -99,6 +94,16 @@ struct DVDListView: View {
                             }
                         }
                         .padding()
+                        //                        if navigateToDetailView == true {
+                        //                            NavigationLink(destination: DVDDetailView(dvd: selectedDvd!), isActive: $navigateToDetailView) {
+                        //                                EmptyView()
+                        //                            }
+                        //                        }
+                        if let dvd = selectedDvd {
+                            NavigationLink(destination: DVDDetailView(dvd: dvd), isActive: $navigateToDetailView) {
+                                EmptyView()
+                            }
+                        }
                     }
                 }
             }
@@ -111,14 +116,15 @@ struct DVDListView: View {
     }
     
     let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000", "5051889700371", "5051889638957", "3333293820435", "7321950745685", "7321950809325", "5051889257400"]
+    //    let simulatedBarcode = ["3760137632648", "5051889257400"]
     
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
-        var barcode = barcode
         
         switch result {
         case .success(let result):
-            barcode = result.string
+            let barcode = result.string
+            dvdCollectionViewModel.barcodeVM = result.string
             print(barcode)
             scannerService.fetchDvdInfo(barcode) { [self] fetchResult in
                 switch fetchResult {
@@ -164,9 +170,13 @@ struct DVDGridItem: View {
                         .clipped()
                         .overlay(
                             GeometryReader { media in
-                                Image(dvd.media).renderingMode(.original).resizable(resizingMode: .stretch).aspectRatio(contentMode: .fit).frame(width: 45, height: 40)
-                                    .background(Color.white).cornerRadius(5)
-                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.95).shadow(radius: 1)
+                                Image(dvd.media)
+                                    .resizable(resizingMode: .stretch)
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 45, height: 40)
+                                    .background(Color.white)
+                                    .cornerRadius(5)
+                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.93).shadow(radius: 1)
                             }
                         )
                 } else {
@@ -185,10 +195,12 @@ struct DVDGridItem: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }.frame(minWidth: 170, maxWidth: .infinity, minHeight: 250, maxHeight: 300, alignment: .top)
-            .clipped()
-        //            .shadow(color: .gray, radius: 8, x: 0, y: 4)
-        
+        }.frame(minWidth: 170,
+                maxWidth: .infinity,
+                minHeight: 250,
+                maxHeight: 300,
+                alignment: .top)
+        .clipped()
     }
 }
 
