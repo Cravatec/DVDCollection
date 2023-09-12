@@ -36,28 +36,10 @@ struct DVDDetailView: View {
                                 }
                             )
                     } else {
-                        Image(systemName: "film")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 160, height: 250,
-                                   alignment: .bottom)
-                            .clipped()
-                            .overlay(
-                                GeometryReader { media in
-                                    Image(dvd.media)
-                                        .renderingMode(.original)
-                                        .resizable(resizingMode: .stretch)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 45,
-                                               height: 40)
-                                        .background(Color.white)
-                                        .cornerRadius(30)
-                                        .position(x: media.size.width * 0.85, y: media.size.height * 0.95)
-                                }
-                            )
+                        Image(dvd.media)
                     }
                 }.background(Color.white)
-                    .frame(height: 280, alignment: .center)
+                    .frame(height: 250, alignment: .center)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.gray, lineWidth: 1)
@@ -103,6 +85,7 @@ struct DVDDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Stars:")
                         .font(.headline)
+                    // Sort the stars by type
                     let sortedStars = dvd.stars.star.sorted
                     { star1, star2 in
                         if star1.type == .réalisateur {
