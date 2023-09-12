@@ -10,16 +10,16 @@ import SwiftUI
 import CoreData
 
 final class DvdCollectionViewModel: ObservableObject {
-@Published var isShowingMessage = false
-@Published var message: String = ""
-@Published var barcodeVM: String = ""
-
-private let scannerService: ScannerService
-
+    @Published var isShowingMessage = false
+    @Published var message: String = ""
+    @Published var barcodeVM: String = ""
+    
+    private let scannerService: ScannerService
+    
     init(scannerService: ScannerService) {
-           self.scannerService = scannerService
-       }
-
+        self.scannerService = scannerService
+    }
+    
     func fetchDvdInfoMessenger(_ barcode: String) {
         self.barcodeVM = barcode
         scannerService.fetchDvdInfo(barcode) { [weak self] result in
@@ -32,17 +32,19 @@ private let scannerService: ScannerService
             }
         }
     }
-
+    
 }
-
 
 final class ScannerService: ObservableObject {
     
+    // Fetch on DVDFr.com Api with the barcode scanned
     func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<(), Error>) -> Void) {
+        // First it's checked if it's already on the DataBase.
         guard !isBarcodeExist(barcode) else {
             completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This disc is already in your collection."])))
             return
         }
+        // If not already in the DataBase, call the Api
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
@@ -54,15 +56,18 @@ final class ScannerService: ObservableObject {
         }
     }
     
-     func isBarcodeExist(_ barcode: String) -> Bool {
+    // Check if a barcode is already on the DataBase
+    func isBarcodeExist(_ barcode: String) -> Bool {
         return CoreDataStorage.shared.isBarcodeExists(barcode: barcode)
     }
-        
+    
+    // Parsing the xml recived from the Api
     func parseDvdFrAPIResponse(xml: Data) -> [Dvd] {
         let dvds = xmlParserDvdFr(xml: xml)
         return dvds
     }
     
+    // Saving the result of the parsing to the DataBase.
     func savingDvd(dvds: [Dvd], barcode: String) {
         let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
         
@@ -70,10 +75,10 @@ final class ScannerService: ObservableObject {
             switch result {
             case .success:
                 print("Save in CoreData")
-                // Refresh the list view
+                // Refresh the DVDListView after the save
                 NotificationCenter.default.post(name: refreshDVDListViewNotification, object: nil)
                 
-                // fetch coverURL to save into data image in CoreData
+                // Fetch coverURL for saving in the DataBase
                 if let firstDvd = dvds.first {
                     if let coverURL = URL(string: firstDvd.cover) {
                         downloadAndSaveImage(from: coverURL, into: firstDvd) { imageResult in
@@ -87,12 +92,12 @@ final class ScannerService: ObservableObject {
                         }
                     }
                 }
-                // Refresh the list view
+                // Refresh the DVDListView
                 let seconds = 3.0
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                     NotificationCenter.default.post(name: refreshDVDListViewNotification, object: nil)
                 }
-            
+                
             case .failure(let error):
                 print("Failed to save DVD data: \(error.localizedDescription)")
             }
@@ -100,6 +105,7 @@ final class ScannerService: ObservableObject {
     }
     
     func downloadAndSaveImage(from url: URL, into dvd: Dvd, completion: @escaping (Result<Void, Error>) -> Void) {
+        // Fetch the CoverUrl to download
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
@@ -111,11 +117,10 @@ final class ScannerService: ObservableObject {
                 return
             }
             
-            // Save the image data directly into Core Data
+            // Save the image data directly into DataBase
             CoreDataStorage.shared.update(dvd: dvd, coverImageData: data) { result in
                 switch result {
                 case .success:
-//                    print("Cover image saved successfully in CoreData.")
                     completion(.success(()))
                 case .failure(let error):
                     print("Failed to save cover image: \(error.localizedDescription)")

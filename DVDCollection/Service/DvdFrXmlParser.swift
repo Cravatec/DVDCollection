@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Taking the xml fetched with the DVDFr.com Api and do a parsing for extract the data.
 class DvdFrXmlParser: NSObject, XMLParserDelegate {
     
     var currentElement: String = ""
@@ -15,6 +16,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     var stars: [Star] = []
     var dvds: [Dvd] = []
     
+    // Checked the different part of the xml for determing if it's conform to dvd or star model
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
         if elementName == "dvd" {
@@ -31,6 +33,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
         }
     }
     
+    // Take the different entitites case for trim to the model
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if !data.isEmpty {
@@ -53,6 +56,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
         }
     }
     
+    // Take the result to conform with the dvd or star model
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "dvd" {
             let starsObject = Stars(star: stars)
@@ -69,7 +73,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
                           stars: starsObject,
                           barcode: currentDVD["barcode"] ?? "")
             dvds.append(dvd)
-            stars = [] // Reset the stars array for the next DVD
+            stars = []
         } else if elementName == "star" {
             let starTypeString = currentStar["type"]
             let starType = starTypeString == "Acteur" ? TypeEnum.acteur : TypeEnum.réalisateur
@@ -81,6 +85,7 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     }
 }
 
+// Return the result of the xml parsing adapted with the models
 func xmlParserDvdFr(xml:Data) -> [Dvd] {
     let parser = XMLParser(data: xml)
     let dvdParser = DvdFrXmlParser()

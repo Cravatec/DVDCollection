@@ -94,11 +94,8 @@ struct DVDListView: View {
                             }
                         }
                         .padding()
-                        //                        if navigateToDetailView == true {
-                        //                            NavigationLink(destination: DVDDetailView(dvd: selectedDvd!), isActive: $navigateToDetailView) {
-                        //                                EmptyView()
-                        //                            }
-                        //                        }
+                        
+                        // NavigationLink to DVDDetailView when a barcode scanned is already in the DataBase and the user choose "View Media" button on the alert.
                         if let dvd = selectedDvd {
                             NavigationLink(destination: DVDDetailView(dvd: dvd), isActive: $navigateToDetailView) {
                                 EmptyView()
