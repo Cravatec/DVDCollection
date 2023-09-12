@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalyticsSwift
 
 struct DVDDetailView: View {
     let dvd: Dvd
@@ -114,6 +115,7 @@ struct DVDDetailView: View {
                     alignment:.center)
             .padding()
             .navigationBarTitle(dvd.titres.fr)
+            .analyticsScreen(name: "\(DVDDetailView.self)")
         }
     }
 }

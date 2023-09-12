@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import FirebaseAnalyticsSwift
 
 struct DVDListView: View {
     @State private var isShowingScanner = false
@@ -104,6 +105,7 @@ struct DVDListView: View {
                     }
                 }
             }
+            .analyticsScreen(name: "\(DVDListView.self)")
         }
         .padding()
         .onAppear {
