@@ -69,7 +69,7 @@ struct DVDListView: View {
                         return Alert(
                             title: Text("Attention"),
                             message: Text("\(dvdCollectionViewModel.message)"),
-                            primaryButton: .default(Text("View Media")) {
+                            primaryButton: .default(Text("View Disc")) {
                                 // Handle navigation to DVDDetailView using NavigationLink
                                 selectedDvd = filteredDvds.first
                                 navigateToDetailView = true
@@ -190,9 +190,11 @@ struct DVDGridItem: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
                     .frame(alignment: .center)
-                    .clipped().frame(maxWidth: 160)
+                    .clipped().frame(maxWidth: 150)
+//                  .minimumScaleFactor(0.1)
                 Text(dvd.annee)
-                    .font(.subheadline)
+                    .font(.footnote)
+                    .fontWeight(.light)
                     .foregroundColor(.gray)
             }
         }.frame(minWidth: 170,
