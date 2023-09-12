@@ -40,7 +40,7 @@ final class ScannerService: ObservableObject {
     
     func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<(), Error>) -> Void) {
         guard !isBarcodeExist(barcode) else {
-            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This media is already in your collection."])))
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This disc is already in your collection."])))
             return
         }
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
