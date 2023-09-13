@@ -40,18 +40,22 @@ struct DVDDetailView: View {
                         Image(dvd.media)
                     }
                 }.background(Color.white)
-                    .frame(height: 250, alignment: .center)
+                //                    .frame(height: 250, alignment: .center)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.gray, lineWidth: 1)
                     )
-//                .shadow(color: Color.gray.opacity(0.3), radius: 20, x: 0, y: 10)
-//                .shadow(color: Color.gray.opacity(0.2), radius: 5, x: 0, y: 2)
+                //                .shadow(color: Color.gray.opacity(0.3), radius: 20, x: 0, y: 10)
+                //                .shadow(color: Color.gray.opacity(0.2), radius: 5, x: 0, y: 2)
                 VStack{
                     VStack {
                         Text("\(dvd.titres.fr)")
-                            .font(.title3).fontWeight(.bold)
-                        Text("Original Title: \(dvd.titres.vo)").font(.footnote).padding(.horizontal).opacity(dvd.titres.vo.isEmpty ? 0 : 1)
+                            .font(Font.custom("Trebuchet MS Bold", size: 17))
+                        //                            .font(.title3)
+                        //                            .fontWeight(.black)
+                        Text("Original Title: \(dvd.titres.vo)")
+                            .font(.footnote).foregroundColor(Color.gray)
+                            .padding(.horizontal).opacity(dvd.titres.vo.isEmpty ? 0 : 1)
                     }
                     .allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                     .frame(maxWidth: .greatestFiniteMagnitude,
@@ -65,14 +69,14 @@ struct DVDDetailView: View {
                         Text("Alternative Title: \(dvd.titres.alternatif)\(dvd.titres.alternatifVo)").opacity(dvd.titres.alternatif.isEmpty && dvd.titres.alternatifVo.isEmpty ? 0 : 1)
                     }
                     .font(.caption)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.center).foregroundColor(Color.gray)
                     
                     HStack {
                         Text("Year: \(dvd.annee)").opacity(dvd.annee.isEmpty ? 0 : 1)
                         Image(systemName: "barcode")
                         Text(": \(dvd.barcode)")
                     }
-                    .font(.footnote)
+                    .font(.footnote).foregroundColor(Color.gray)
                     .frame(width: 500,
                            height: 10,
                            alignment: .center)
@@ -81,7 +85,7 @@ struct DVDDetailView: View {
                         Text("Editor: \(dvd.editeur)")
                         Text("Edition: \(dvd.edition)").opacity(dvd.edition.isEmpty ? 0 : 1)
                     }
-                    .font(.footnote)
+                    .font(.body).foregroundColor(Color.gray)
                 }
                 VStack(alignment: .leading) {
                     Text("Stars:")
@@ -114,7 +118,8 @@ struct DVDDetailView: View {
                     maxHeight: .greatestFiniteMagnitude,
                     alignment:.center)
             .padding()
-            .navigationBarTitle(dvd.titres.fr)
+            .navigationTitle(dvd.titres.fr)
+            .navigationBarTitleDisplayMode(.inline)
             .analyticsScreen(name: "\(DVDDetailView.self)")
         }
     }
