@@ -49,9 +49,6 @@ struct DVDListView: View {
                     if !isPresented && dvdCollectionViewModel.isShowingMessage {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             dvdCollectionViewModel.isShowingMessage = false
-//                            if dvdCollectionViewModel.barcodeVM.isEmpty {
-//                                showAlert = true
-//                            }
                             let newAlert = Alert(
                                 title: Text("Error"),
                                 message: Text(dvdCollectionViewModel.message),
@@ -64,7 +61,6 @@ struct DVDListView: View {
                 }
                 .alert(isPresented: $showAlert) {
                     _ = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
-//                    if scannerService.isBarcodeExist(dvdCollectionViewModel.barcodeVM) {
                         let filteredDvds = filteredBarcode(barcode: dvdCollectionViewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
   
                         return Alert(
@@ -74,13 +70,9 @@ struct DVDListView: View {
                                 // Handle navigation to DVDDetailView using NavigationLink
                                 selectedDvd = filteredDvds.first
                                 navigateToDetailView = true
-                                print("dvdCollectionViewModel.barcodeVM: \(dvdCollectionViewModel.barcodeVM)")
                             },
                             secondaryButton: .default(Text("OK"))
                         )
-//                    } else {
-//                        return
-//                    }
                 }
                 
                 VStack() {
@@ -123,21 +115,8 @@ struct DVDListView: View {
         case .success(let result):
             let barcode = result.string
             dvdCollectionViewModel.barcodeVM = result.string
-            print(barcode)
-            scannerService.fetchDvdInfo(barcode) { [self] fetchResult in
-                switch fetchResult {
-                case .success:
-                    print("Fetch DVD info succeeded.")
-                case .failure(let error):
-                    print("Fetch DVD info failed: \(error.localizedDescription)")
-                    DispatchQueue.main.async {
-                        self.dvdCollectionViewModel.message = error.localizedDescription
-                        if !isShowingScanner {
-                            self.dvdCollectionViewModel.isShowingMessage = true
-                        }
-                    }
-                }
-            }
+            dvdCollectionViewModel.fetchDvdInfos(barcode)
+            
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
         }
@@ -189,7 +168,6 @@ struct DVDGridItem: View {
                     .lineLimit(3)
                     .frame(alignment: .center)
                     .clipped().frame(maxWidth: 150)
-//                  .minimumScaleFactor(0.1)
                 Text(dvd.annee)
                     .font(.footnote)
                     .fontWeight(.light)
