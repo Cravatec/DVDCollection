@@ -23,6 +23,14 @@ final class DvdCollectionViewModel: ObservableObject {
     
     func fetchDvdInfos(_ barcode: String) {
         self.barcodeVM = barcode
+        
+        // First it's checked if it's already on the DataBase.
+        guard !scannerService.isBarcodeExist(barcode) else {
+            message = "This disc is already in your collection."
+            isShowingMessage = true
+            return
+        }
+        
         scannerService.fetchDvdInfo(barcode) { [weak self] result in
             switch result {
             case .success(let dvds):
@@ -40,11 +48,11 @@ final class ScannerService: ObservableObject {
     
     // Fetch on DVDFr.com Api with the barcode scanned
     func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<[Dvd], Error>) -> Void) {
-        // First it's checked if it's already on the DataBase.
-        guard !isBarcodeExist(barcode) else {
-            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This disc is already in your collection."])))
-            return
-        }
+//        // First it's checked if it's already on the DataBase.
+//        guard !isBarcodeExist(barcode) else {
+//            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "This disc is already in your collection."])))
+//            return
+//        }
         // If not already in the DataBase, call the Api
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
