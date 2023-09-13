@@ -13,6 +13,7 @@ final class DvdCollectionViewModel: ObservableObject {
     @Published var isShowingMessage = false
     @Published var message: String = ""
     @Published var barcodeVM: String = ""
+    @Published var dvds = [Dvd]()
     
     private let scannerService: ScannerService
     
@@ -24,7 +25,8 @@ final class DvdCollectionViewModel: ObservableObject {
         self.barcodeVM = barcode
         scannerService.fetchDvdInfo(barcode) { [weak self] result in
             switch result {
-            case .success(_):
+            case .success(let dvds):
+                self?.dvds = dvds
                 self?.isShowingMessage = false
             case .failure(let error):
                 self?.message = error.localizedDescription
@@ -32,7 +34,6 @@ final class DvdCollectionViewModel: ObservableObject {
             }
         }
     }
-    
 }
 
 final class ScannerService: ObservableObject {
