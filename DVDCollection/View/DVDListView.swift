@@ -17,11 +17,8 @@ struct DVDListView: View {
     @State private var navigateToDetailView = false
     @State private var selectedDvd: Dvd?
     
-    @StateObject private var viewModel = DVDListViewModel()
-    
-    @ObservedObject var dvdCollectionViewModel = DvdCollectionViewModel(scannerService: ScannerService())
-    
-    let scannerService = ScannerService()
+    @StateObject private var viewModel = DVDListViewModel(scannerService: ScannerService())
+
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
     
     var body: some View {
@@ -46,12 +43,12 @@ struct DVDListView: View {
                                     completion: handleScan)
                 }
                 .onChange(of: isShowingScanner) { isPresented in
-                    if !isPresented && dvdCollectionViewModel.isShowingMessage {
+                    if !isPresented && viewModel.isShowingMessage {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            dvdCollectionViewModel.isShowingMessage = false
+                            viewModel.isShowingMessage = false
                             let newAlert = Alert(
                                 title: Text("Error"),
-                                message: Text(dvdCollectionViewModel.message),
+                                message: Text(viewModel.message),
                                 dismissButton: .default(Text("OK"))
                             )
                             currentAlert = newAlert
@@ -61,11 +58,11 @@ struct DVDListView: View {
                 }
                 .alert(isPresented: $showAlert) {
                     _ = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
-                        let filteredDvds = filteredBarcode(barcode: dvdCollectionViewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
+                        let filteredDvds = filteredBarcode(barcode: viewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
   
                         return Alert(
                             title: Text("Attention"),
-                            message: Text("\(dvdCollectionViewModel.message)"),
+                            message: Text("\(viewModel.message)"),
                             primaryButton: .default(Text("View Disc")) {
                                 // Handle navigation to DVDDetailView using NavigationLink
                                 selectedDvd = filteredDvds.first
@@ -96,8 +93,7 @@ struct DVDListView: View {
                         }
                     }
                 }
-            }
-            .analyticsScreen(name: "\(DVDListView.self)")
+            }.analyticsScreen(name: "\(DVDListView.self)")
         }
         .padding()
         .onAppear {
@@ -114,8 +110,7 @@ struct DVDListView: View {
         switch result {
         case .success(let result):
             let barcode = result.string
-            dvdCollectionViewModel.barcodeVM = result.string
-            dvdCollectionViewModel.fetchDvdInfos(barcode)
+            viewModel.fetchDvdInfos(barcode)
             
         case .failure(let error):
             print("Scanning failed: \(error.localizedDescription)")
@@ -133,7 +128,6 @@ struct DVDListView: View {
         dvds.filter { $0.barcode.localizedCaseInsensitiveContains(barcode) }
     }
 }
-
 
 
 struct DVDListView_Previews: PreviewProvider {
