@@ -10,6 +10,9 @@
 		2200B0DF2A9E2931008B7E33 /* FetchDvdFrApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */; };
 		2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */; };
 		220AEE782AA5DAE200D3F69D /* ScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220AEE772AA5DAE200D3F69D /* ScannerService.swift */; };
+		222D25B42AB1DB9200BEA5F6 /* DVDGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D25B32AB1DB9200BEA5F6 /* DVDGridItem.swift */; };
+		222D25B62AB1DBBB00BEA5F6 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D25B52AB1DBBB00BEA5F6 /* SearchBar.swift */; };
+		222D25B92AB1DC0400BEA5F6 /* DVDListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222D25B82AB1DC0400BEA5F6 /* DVDListViewModel.swift */; };
 		224CF8B52A9FB412006DD44E /* DVDListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CF8B42A9FB412006DD44E /* DVDListView.swift */; };
 		224CF8B72A9FB445006DD44E /* DVDDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CF8B62A9FB445006DD44E /* DVDDetailView.swift */; };
 		226471992A9E9FB4006D4091 /* DvdFrXmlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */; };
@@ -51,6 +54,9 @@
 		2200B0DE2A9E2931008B7E33 /* FetchDvdFrApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDvdFrApi.swift; sourceTree = "<group>"; };
 		2200B0E52A9E2A20008B7E33 /* DvdFrModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrModel.swift; sourceTree = "<group>"; };
 		220AEE772AA5DAE200D3F69D /* ScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerService.swift; sourceTree = "<group>"; };
+		222D25B32AB1DB9200BEA5F6 /* DVDGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDGridItem.swift; sourceTree = "<group>"; };
+		222D25B52AB1DBBB00BEA5F6 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		222D25B82AB1DC0400BEA5F6 /* DVDListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDListViewModel.swift; sourceTree = "<group>"; };
 		224CF8B42A9FB412006DD44E /* DVDListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDListView.swift; sourceTree = "<group>"; };
 		224CF8B62A9FB445006DD44E /* DVDDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVDDetailView.swift; sourceTree = "<group>"; };
 		226471982A9E9FB4006D4091 /* DvdFrXmlParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DvdFrXmlParser.swift; sourceTree = "<group>"; };
@@ -122,6 +128,25 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		222D25B22AB1DB5900BEA5F6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				224CF8B42A9FB412006DD44E /* DVDListView.swift */,
+				224CF8B62A9FB445006DD44E /* DVDDetailView.swift */,
+				222D25B32AB1DB9200BEA5F6 /* DVDGridItem.swift */,
+				222D25B52AB1DBBB00BEA5F6 /* SearchBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		222D25B72AB1DBEF00BEA5F6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				222D25B82AB1DC0400BEA5F6 /* DVDListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		22908B8C2A9CD08D0060ACA7 = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				22908B982A9CD08D0060ACA7 /* DVDCollectionApp.swift */,
-				224CF8B42A9FB412006DD44E /* DVDListView.swift */,
-				224CF8B62A9FB445006DD44E /* DVDDetailView.swift */,
+				222D25B72AB1DBEF00BEA5F6 /* ViewModel */,
+				222D25B22AB1DB5900BEA5F6 /* View */,
 				2200B0E42A9E2A13008B7E33 /* Model */,
 				2200B0E32A9E29AB008B7E33 /* Service */,
 				22908B9C2A9CD08E0060ACA7 /* Assets.xcassets */,
@@ -351,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222D25B62AB1DBBB00BEA5F6 /* SearchBar.swift in Sources */,
 				224CF8B52A9FB412006DD44E /* DVDListView.swift in Sources */,
 				224CF8B72A9FB445006DD44E /* DVDDetailView.swift in Sources */,
 				2200B0E62A9E2A20008B7E33 /* DvdFrModel.swift in Sources */,
@@ -359,9 +385,11 @@
 				227DB49C2AA4745A00D2AD7D /* StarEntity+CoreDataProperties.swift in Sources */,
 				227DB49B2AA4745A00D2AD7D /* StarEntity+CoreDataClass.swift in Sources */,
 				226471992A9E9FB4006D4091 /* DvdFrXmlParser.swift in Sources */,
+				222D25B92AB1DC0400BEA5F6 /* DVDListViewModel.swift in Sources */,
 				22908B992A9CD08D0060ACA7 /* DVDCollectionApp.swift in Sources */,
 				22AC62BE2A9F486E00085927 /* DVD_CoreData.xcdatamodeld in Sources */,
 				22AC62C02A9F4A2200085927 /* StorageService.swift in Sources */,
+				222D25B42AB1DB9200BEA5F6 /* DVDGridItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
