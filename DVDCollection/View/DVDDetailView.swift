@@ -23,36 +23,47 @@ struct DVDDetailView: View {
                             .frame(height: 250,
                                    alignment: .bottom)
                             .clipped()
-                            .overlay(
-                                GeometryReader { media in
-                                    Image(dvd.media)
-                                        .renderingMode(.original)
-                                        .resizable(resizingMode: .stretch)
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 45,
-                                               height: 40)
-                                        .background(Color.white)
-                                        .cornerRadius(30)
-                                        .position(x: media.size.width * 0.85, y: media.size.height * 0.95)
-                                }
-                            )
                     } else {
                         Image(dvd.media)
                     }
                 }.background(Color.white)
-                //                    .frame(height: 250, alignment: .center)
+                    .frame(height: 250, alignment: .center).cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray, lineWidth: 1)
+                            .stroke(.gray, lineWidth: 5)
                     )
+                    .overlay(
+                        GeometryReader { media in
+                            Image(dvd.media)
+                                .resizable(resizingMode: .stretch)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 45, height: 40)
+                                .background(Color.white)
+                                .cornerRadius(5)
+                                .position(x: media.size.width * 0.89, y: media.size.height * 0.92).shadow(radius: 1)
+                        }
+                    )
+//                    .overlay(
+//                        GeometryReader { media in
+//                            Image(dvd.media)
+//                                .renderingMode(.original)
+//                                .resizable(resizingMode: .stretch)
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: 45,
+//                                       height: 40)
+//                                .background(Color.white)
+//                                .cornerRadius(5)
+//                                .position(x: media.size.width * 0.85, y: media.size.height * 0.95)
+//                        }
+//                    )
                 //                .shadow(color: Color.gray.opacity(0.3), radius: 20, x: 0, y: 10)
                 //                .shadow(color: Color.gray.opacity(0.2), radius: 5, x: 0, y: 2)
                 VStack{
                     VStack {
                         Text("\(dvd.titres.fr)")
-                            .font(Font.custom("Trebuchet MS Bold", size: 17))
-                        //                            .font(.title3)
-                        //                            .fontWeight(.black)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            
                         Text("Original Title: \(dvd.titres.vo)")
                             .font(.footnote).foregroundColor(Color.gray)
                             .padding(.horizontal).opacity(dvd.titres.vo.isEmpty ? 0 : 1)
@@ -137,12 +148,12 @@ struct DVDDetailView_Previews: PreviewProvider {
                                annee: "2023",
                                edition: "Swift",
                                editeur: "Apple",
-                               stars: Stars(star: [Star(type: .acteur, id: "22",
-                                                        text: "Mr Machin"),
+                               stars: Stars(star: [Star(type: .acteur, id: "1",
+                                                        text: "John Smith"),
                                                    Star(type: .réalisateur,
-                                                        id: "33", text: "Jean Duchemol"),
-                                                   Star(type: .acteur, id: "44",
-                                                        text: "Mme Michu")
+                                                        id: "33", text: "John Rambo"),
+                                                   Star(type: .acteur, id: "4",
+                                                        text: "Jane Zoe")
                                ]), barcode: "3607483270608"))
     }
 }
