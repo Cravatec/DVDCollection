@@ -56,3 +56,9 @@ struct DVDGridItem: View {
         .clipped()
     }
 }
+
+struct DVDGridItem_Previews: PreviewProvider {
+    static var previews: some View {
+        DVDGridItem(dvd: Dvd.init(id: "12", media: "DVD", cover: "", titres: Titres(fr: "Y a-t-il un pilote dans l'avion ? + Y a-t-il enfin un pilote dans l'avion ? 2", vo: "", alternatif: "", alternatifVo: ""), annee: "2023", edition: "", editeur: "", stars: Stars(star: [Star.init(type: .réalisateur, id: "12", text: "Steven Spielberg")]), barcode: "12345545"))
+    }
+}
