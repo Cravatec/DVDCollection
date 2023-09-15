@@ -18,7 +18,7 @@ struct DVDListView: View {
     @State private var selectedDvd: Dvd?
     
     @StateObject private var viewModel = DVDListViewModel(scannerService: ScannerService())
-
+    
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
     
     var body: some View {
@@ -58,18 +58,19 @@ struct DVDListView: View {
                 }
                 .alert(isPresented: $showAlert) {
                     _ = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
-                        let filteredDvds = filteredBarcode(barcode: viewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
-  
-                        return Alert(
-                            title: Text("Attention"),
-                            message: Text("\(viewModel.message)"),
-                            primaryButton: .default(Text("View Disc")) {
-                                // Handle navigation to DVDDetailView using NavigationLink
-                                selectedDvd = filteredDvds.first
-                                navigateToDetailView = true
-                            },
-                            secondaryButton: .default(Text("OK"))
-                        )
+                    
+                    let filteredDvds = filteredBarcode(barcode: viewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
+                    
+                    return Alert(
+                        title: Text("Attention"),
+                        message: Text("\(viewModel.message)"),
+                        primaryButton: .default(Text("View Disc")) {
+                            // Handle navigation to DVDDetailView using NavigationLink
+                            selectedDvd = filteredDvds.first
+                            navigateToDetailView = true
+                        },
+                        secondaryButton: .default(Text("OK"))
+                    )
                 }
                 
                 VStack() {
@@ -77,6 +78,7 @@ struct DVDListView: View {
                     
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], alignment: HorizontalAlignment.center, spacing: 10) {
+                            
                             ForEach(searchText.isEmpty ? viewModel.dvds : viewModel.filteredDvds(searchText: searchText), id: \.id) { dvd in
                                 NavigationLink(destination: DVDDetailView(dvd: dvd)) {
                                     DVDGridItem(dvd: dvd)
@@ -104,6 +106,7 @@ struct DVDListView: View {
     
     let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000", "5051889700371", "5051889638957", "3333293820435", "7321950745685", "7321950809325", "5051889257400"]
     
+    // take the scanned barcode and fetch
     func handleScan(result: Result<ScanResult, ScanError>) {
         isShowingScanner = false
         
