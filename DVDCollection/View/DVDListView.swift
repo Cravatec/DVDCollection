@@ -95,13 +95,15 @@ struct DVDListView: View {
                         }
                     }
                 }
-            }.analyticsScreen(name: "\(DVDListView.self)")
+            }.background(Color(.systemGray6)).ignoresSafeArea()
+            .analyticsScreen(name: "\(DVDListView.self)")
         }
         .padding()
         .onAppear {
             viewModel.fetchDVDs()
             setupNotificationObserver()
         }
+        .background(Color(.systemGray6))
     }
     
     let simulatedBarcode = ["3760137632648", "5051889638940", "3700301045065", "5051889675693", "3333290005415", "5053083261993", "3701432014517", "3701432006000", "5051889700371", "5051889638957", "3333293820435", "7321950745685", "7321950809325", "5051889257400"]

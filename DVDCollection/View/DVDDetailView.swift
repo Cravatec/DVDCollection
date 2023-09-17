@@ -30,7 +30,7 @@ struct DVDDetailView: View {
                     .frame(height: 250, alignment: .center).cornerRadius(16)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray, lineWidth: 5)
+                            .stroke(.white, lineWidth: 2)
                     )
                     .overlay(
                         GeometryReader { media in
@@ -43,21 +43,6 @@ struct DVDDetailView: View {
                                 .position(x: media.size.width * 0.89, y: media.size.height * 0.92).shadow(radius: 1)
                         }
                     )
-//                    .overlay(
-//                        GeometryReader { media in
-//                            Image(dvd.media)
-//                                .renderingMode(.original)
-//                                .resizable(resizingMode: .stretch)
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 45,
-//                                       height: 40)
-//                                .background(Color.white)
-//                                .cornerRadius(5)
-//                                .position(x: media.size.width * 0.85, y: media.size.height * 0.95)
-//                        }
-//                    )
-                //                .shadow(color: Color.gray.opacity(0.3), radius: 20, x: 0, y: 10)
-                //                .shadow(color: Color.gray.opacity(0.2), radius: 5, x: 0, y: 2)
                 VStack{
                     VStack {
                         Text("\(dvd.titres.fr)")
@@ -129,9 +114,10 @@ struct DVDDetailView: View {
                     maxHeight: .greatestFiniteMagnitude,
                     alignment:.center)
             .padding()
-            .navigationTitle(dvd.titres.fr)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(dvd.titres.fr).background(Color(.systemGray6))
+            .navigationBarTitleDisplayMode(.inline).background(Color(.systemGray6))
             .analyticsScreen(name: "\(DVDDetailView.self)")
+            .background(Color(.systemGray6)).ignoresSafeArea(.all)
         }
     }
 }

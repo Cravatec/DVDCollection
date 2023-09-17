@@ -18,7 +18,11 @@ struct DVDGridItem: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 190, alignment: .bottom)
+                        .frame(height: 190, alignment: .bottom).cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(.white, lineWidth: 2)
+                        )
                         .clipped()
                         .overlay(
                             GeometryReader { media in
@@ -54,6 +58,7 @@ struct DVDGridItem: View {
                 maxHeight: 300,
                 alignment: .top)
         .clipped()
+        .background(Color(.systemGray6))
     }
 }
 
