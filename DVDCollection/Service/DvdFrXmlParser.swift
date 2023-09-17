@@ -85,6 +85,10 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     }
 }
 
+func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+       print("Failure error: \(parseError)")
+   }
+
 // Return the result of the xml parsing adapted with the models
 func xmlParserDvdFr(xml:Data) -> [Dvd] {
     let parser = XMLParser(data: xml)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dvds generator="$Id: dvd.tpl 855 2008-08-04 15:53:24Z glapierre $">
+    <dvd>
+        <id>95879</id>
+        <media>DVD</media>
+        <cover>https://www.dvdfr.com/images/dvd/covers/200x280/d532083749f6abc8f1f5f55b6045efd5/95879/3d-je_suis_une_legende_1964_artus.0.jpg</cover>
+        <titres>
+            <fr>Je suis une légende</fr>
+            <vo>The Last Man on Earth</vo>
+            <alternatif></alternatif>
+            <alternatif_vo>Naked Terror | Night People | The Night Creatures | Wind of Death</alternatif_vo>
+        </titres>
+        <annee>1964</annee>
+        <edition></edition>
+        <editeur>Artus Films</editeur>
+        <stars>
+            <star type="Réalisateur" id="138238">Ubaldo B. Ragona</star>
+            <star type="Réalisateur" id="133195">Sidney Salkow</star>
+            <star type="Acteur" id="46567">Vincent Price</star>
+            <star type="Acteur" id="94010">Franca Bettoia</star>
+            <star type="Acteur" id="35224">Emma Danieli</star>
+            <star type="Acteur" id="51315">Giacomo Rossi-Stuart</star>
+            <star type="Acteur" id="81064">Umberto Raho</star>
+            <star type="Acteur" id="96282">Christi Courtland</star>
+            <star type="Acteur" id="236057">Tony Corevi</star>
+            <star type="Acteur" id="236058">Hector Ribotta</star>
+        </stars>
+    </dvd>
+</dvds>

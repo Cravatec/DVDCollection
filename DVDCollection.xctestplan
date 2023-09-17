@@ -1,0 +1,41 @@
+{
+  "configurations" : [
+    {
+      "id" : "EAFC3574-A385-4E2A-A49B-D04E026105EC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-FIRAnalyticsDebugEnabled"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DVDCollection.xcodeproj",
+      "identifier" : "22908B942A9CD08D0060ACA7",
+      "name" : "DVDCollection"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DVDCollection.xcodeproj",
+        "identifier" : "22908BA52A9CD08E0060ACA7",
+        "name" : "DVDCollectionTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:DVDCollection.xcodeproj",
+        "identifier" : "22908BAF2A9CD08E0060ACA7",
+        "name" : "DVDCollectionUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
