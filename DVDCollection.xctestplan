@@ -19,7 +19,8 @@
       "containerPath" : "container:DVDCollection.xcodeproj",
       "identifier" : "22908B942A9CD08D0060ACA7",
       "name" : "DVDCollection"
-    }
+    },
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {

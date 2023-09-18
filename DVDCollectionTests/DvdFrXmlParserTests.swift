@@ -75,4 +75,19 @@ class DvdFrXmlParserTests: XCTestCase {
             XCTFail("Unable to read XML data from FakeXML.xml")
         }
     }
+    
+    // MARK: - Helpers
+    
+    private func xmlParserDvdFr(xml:Data) -> [Dvd] {
+        let parser = XMLParser(data: xml)
+        let dvdParser = DvdFrXmlParser()
+        parser.delegate = dvdParser
+        parser.parse()
+
+        guard let error = dvdParser.error else {
+            return dvdParser.dvds
+        }
+        print(error)
+        return []
+    }
 }
