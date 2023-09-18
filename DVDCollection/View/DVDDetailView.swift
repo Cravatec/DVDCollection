@@ -114,11 +114,10 @@ struct DVDDetailView: View {
                     maxHeight: .greatestFiniteMagnitude,
                     alignment:.center)
             .padding()
-            .navigationTitle(dvd.titres.fr).background(Color(.systemGray6))
-            .navigationBarTitleDisplayMode(.inline).background(Color(.systemGray6))
             .analyticsScreen(name: "\(DVDDetailView.self)")
-            .background(Color(.systemGray6)).ignoresSafeArea(.all)
         }
+        .background(Color(.systemGray6))
+        .ignoresSafeArea()
     }
 }
 
