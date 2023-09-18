@@ -22,6 +22,9 @@ final class CoreDataStorage: StorageService {
     
     static let shared = CoreDataStorage()
     
+    private init() {
+    }
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DVD_CoreData")
         container.loadPersistentStores { description, error in
