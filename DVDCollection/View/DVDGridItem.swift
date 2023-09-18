@@ -41,7 +41,7 @@ struct DVDGridItem: View {
             }
             VStack(alignment: .center) {
                 Text(dvd.titres.fr)
-                    .font(.footnote)
+                    .font(.footnote).foregroundColor(Color("TextColor"))
                     .fontWeight(.regular)
                     .multilineTextAlignment(.center)
                     .lineLimit(3)
