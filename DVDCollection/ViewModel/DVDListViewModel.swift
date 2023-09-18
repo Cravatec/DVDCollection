@@ -63,12 +63,16 @@ class DVDListViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     if error.domain == "BADEAN" {
                         self?.message = "Invalid barcode."
+                        
                     } else if error.code == NSURLErrorNotConnectedToInternet {
                         self?.message = "No Internet connection found. Connect to Internet and try again."
+                        
                     } else if error.code == NSURLErrorTimedOut {
                         self?.message = "The request to the server timed out. Please try again later."
+                        
                     } else {
                         self?.message = "Sorry, can't download information of this media for the moment. Please try again later."
+                        
                     }
                     self?.isShowingMessage = true
                 }
