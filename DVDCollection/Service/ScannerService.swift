@@ -9,39 +9,40 @@ import Foundation
 import SwiftUI
 import CoreData
 
-final class ScannerService: ObservableObject {
+final class ScannerService {
     
     // Fetch on DVDFr.com Api with the barcode scanned
     func fetchDvdInfo(_ barcode: String, completion: @escaping (Result<[Dvd], Error>) -> Void) {
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
-                let parser = DvdFrXmlParser()
-                let dvds = xmlParserDvdFr(xml: xmlData)
-                if parser.badEanError == true {
-                    let error = NSError(domain: "BAD_EAN", code: 0, userInfo: [NSLocalizedDescriptionKey : "Invalid barcode"])
-                    completion(.failure(error))
-                    print("BAD EAN 1 ❌❌")
-                } else {
+                let parserResult = xmlParserDvdFr(xml: xmlData)
+                if case let .success(dvds) = parserResult {
                     savingDvd(dvds: dvds, barcode: barcode)
-                    completion(.success(dvds))
                 }
+                completion(parserResult)
+
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
     
+    private func xmlParserDvdFr(xml:Data) -> Result<[Dvd], Error> {
+        let parser = XMLParser(data: xml)
+        let dvdParser = DvdFrXmlParser()
+        parser.delegate = dvdParser
+        parser.parse()
+
+        guard let error = dvdParser.error else {
+            return .success(dvdParser.dvds)
+        }
+        return .failure(error)
+    }
+    
     // Check if a barcode is already on the DataBase
     func isBarcodeExist(_ barcode: String) -> Bool {
         return CoreDataStorage.shared.isBarcodeExists(barcode: barcode)
-    }
-    
-    // Parsing the xml recived from the Api
-    func parseDvdFrAPIResponse(xml: Data)  -> (dvds: [Dvd], error: Error?) {
-        let parser = DvdFrXmlParser()
-        let dvds = xmlParserDvdFr(xml: xml)
-        return (dvds, parser.error)
     }
     
     // Saving the result of the parsing to the DataBase.
