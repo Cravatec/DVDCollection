@@ -14,13 +14,15 @@ class DVDListViewModel: ObservableObject {
     @Published var dvds = [Dvd]()
     
     private let scannerService: ScannerService
+    private let storageService: StorageService
     
-    init(scannerService: ScannerService) {
+    init(scannerService: ScannerService, storageService: StorageService) {
         self.scannerService = scannerService
+        self.storageService = storageService
     }
     
     func fetchDVDs() {
-        CoreDataStorage.shared.retrieve { result in
+        storageService.retrieve { result in
             switch result {
             case .success(let dvds):
                 DispatchQueue.main.async {
@@ -61,7 +63,9 @@ class DVDListViewModel: ObservableObject {
                 }
             case .failure(let error as NSError):
                 DispatchQueue.main.async {
-                    if error.domain == "BADEAN" {
+                    self?.isShowingMessage = true
+                    
+                    if error.domain == "BAD_EAN" {
                         self?.message = "Invalid barcode."
                         
                     } else if error.code == NSURLErrorNotConnectedToInternet {
@@ -74,7 +78,7 @@ class DVDListViewModel: ObservableObject {
                         self?.message = "Sorry, can't download information of this media for the moment. Please try again later."
                         
                     }
-                    self?.isShowingMessage = true
+                    
                 }
             }
         }
