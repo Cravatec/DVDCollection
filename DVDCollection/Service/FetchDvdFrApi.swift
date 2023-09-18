@@ -29,7 +29,6 @@ class FetchDvdFrApi {
         
         let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
-                // Failure
                 completion(.failure(error))
                 return
             }

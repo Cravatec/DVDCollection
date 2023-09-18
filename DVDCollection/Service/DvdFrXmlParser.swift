@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Taking the xml fetched with the DVDFr.com Api and do a parsing for extract the data.
 class DvdFrXmlParser: NSObject, XMLParserDelegate {
@@ -15,11 +16,17 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     var currentStar: [String: String] = [:]
     var stars: [Star] = []
     var dvds: [Dvd] = []
-    
+    var error: Error?
+    @Published var badEanError = false
+
     // Checked the different part of the xml for determing if it's conform to dvd or star model
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-        if elementName == "dvd" {
+        if elementName == "error" {
+            if let type = attributeDict["type"], type == "fatal" {
+                currentElement = "fatalError"
+            }
+        } else if elementName == "dvd" {
             currentDVD = [:]
             stars = []
         } else if elementName == "star" {
@@ -32,29 +39,35 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
             }
         }
     }
+
     
     // Take the different entitites case for trim to the model
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        if !data.isEmpty {
-            switch currentElement {
-            case "id", "media", "cover", "fr", "vo", "annee", "edition", "editeur", "alternatif", "alternatif_vo":
-                if currentDVD[currentElement] != nil {
-                    currentDVD[currentElement]?.append(data)
+            let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if !data.isEmpty {
+                if currentElement == "code" {
+                    badEanError = true
+                    error = NSError(domain: "BAD_EAN", code: 0, userInfo: [NSLocalizedDescriptionKey : "Invalid barcode"])
                 } else {
-                    currentDVD[currentElement] = data
+                    switch currentElement {
+                    case "id", "media", "cover", "fr", "vo", "annee", "edition", "editeur", "alternatif", "alternatif_vo":
+                        if currentDVD[currentElement] != nil {
+                            currentDVD[currentElement]?.append(data)
+                        } else {
+                            currentDVD[currentElement] = data
+                        }
+                    case "star":
+                        if currentStar["text"] != nil {
+                            currentStar["text"]?.append(data)
+                        } else {
+                            currentStar["text"] = data
+                        }
+                    default:
+                        break
+                    }
                 }
-            case "star":
-                if currentStar["text"] != nil {
-                    currentStar["text"]?.append(data)
-                } else {
-                    currentStar["text"] = data
-                }
-            default:
-                break
             }
         }
-    }
     
     // Take the result to conform with the dvd or star model
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

@@ -16,9 +16,16 @@ final class ScannerService: ObservableObject {
         FetchDvdFrApi().getDvdFrInfo(barcode: barcode) { [self] result in
             switch result {
             case .success(let xmlData):
-                let dvds = parseDvdFrAPIResponse(xml: xmlData)
-                savingDvd(dvds: dvds, barcode: barcode)
-                completion(.success(dvds))
+                let parser = DvdFrXmlParser()
+                let dvds = xmlParserDvdFr(xml: xmlData)
+                if parser.badEanError == true {
+                    let error = NSError(domain: "BAD_EAN", code: 0, userInfo: [NSLocalizedDescriptionKey : "Invalid barcode"])
+                    completion(.failure(error))
+                    print("BAD EAN 1 ❌❌")
+                } else {
+                    savingDvd(dvds: dvds, barcode: barcode)
+                    completion(.success(dvds))
+                }
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -31,9 +38,10 @@ final class ScannerService: ObservableObject {
     }
     
     // Parsing the xml recived from the Api
-    func parseDvdFrAPIResponse(xml: Data) -> [Dvd] {
+    func parseDvdFrAPIResponse(xml: Data)  -> (dvds: [Dvd], error: Error?) {
+        let parser = DvdFrXmlParser()
         let dvds = xmlParserDvdFr(xml: xml)
-        return dvds
+        return (dvds, parser.error)
     }
     
     // Saving the result of the parsing to the DataBase.
