@@ -17,7 +17,8 @@ struct DVDListView: View {
     @State private var navigateToDetailView = false
     @State private var selectedDvd: Dvd?
     
-    @StateObject private var viewModel = DVDListViewModel(scannerService: ScannerService())
+    @StateObject private var viewModel = DVDListViewModel(scannerService: ScannerService(), storageService: CoreDataStorage.shared)
+    
     
     let refreshDVDListViewNotification = Notification.Name("RefreshDVDListViewNotification")
     
@@ -45,12 +46,12 @@ struct DVDListView: View {
                 .onChange(of: isShowingScanner) { isPresented in
                     if !isPresented && viewModel.isShowingMessage {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            viewModel.isShowingMessage = false
                             let newAlert = Alert(
                                 title: Text("Error"),
                                 message: Text(viewModel.message),
                                 dismissButton: .default(Text("OK"))
                             )
+                            print("✅\(viewModel.message)")
                             currentAlert = newAlert
                             showAlert = true
                         }
