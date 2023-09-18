@@ -17,7 +17,6 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
     var stars: [Star] = []
     var dvds: [Dvd] = []
     var error: Error?
-    @Published var badEanError = false
 
     // Checked the different part of the xml for determing if it's conform to dvd or star model
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -46,7 +45,6 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
             let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             if !data.isEmpty {
                 if currentElement == "code" {
-                    badEanError = true
                     error = NSError(domain: "BAD_EAN", code: 0, userInfo: [NSLocalizedDescriptionKey : "Invalid barcode"])
                 } else {
                     switch currentElement {
@@ -101,16 +99,3 @@ class DvdFrXmlParser: NSObject, XMLParserDelegate {
 func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
        print("Failure error: \(parseError)")
    }
-
-// Return the result of the xml parsing adapted with the models
-func xmlParserDvdFr(xml:Data) -> [Dvd] {
-    let parser = XMLParser(data: xml)
-    let dvdParser = DvdFrXmlParser()
-    parser.delegate = dvdParser
-    parser.parse()
-    
-    print(dvdParser.dvds)
-    print(dvdParser.stars)
-    
-    return dvdParser.dvds
-}
