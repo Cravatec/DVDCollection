@@ -31,7 +31,7 @@ struct DVDDetailView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white, lineWidth: 2)
-                    )
+                    ).shadow(radius: 5)
                     .overlay(
                         GeometryReader { media in
                             Image(dvd.media)
@@ -43,6 +43,7 @@ struct DVDDetailView: View {
                                 .position(x: media.size.width * 0.89, y: media.size.height * 0.92).shadow(radius: 1)
                         }
                     )
+                
                 VStack{
                     VStack {
                         Text("\(dvd.titres.fr)")
