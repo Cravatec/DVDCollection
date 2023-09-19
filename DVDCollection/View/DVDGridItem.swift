@@ -18,27 +18,29 @@ struct DVDGridItem: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 190, alignment: .bottom).cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(.white, lineWidth: 2)
-                        )
+                        .frame(height: 190, alignment: .bottom)
                         .clipped()
-                        .overlay(
-                            GeometryReader { media in
-                                Image(dvd.media)
-                                    .resizable(resizingMode: .stretch)
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 45, height: 40)
-                                    .background(Color.white)
-                                    .cornerRadius(5)
-                                    .position(x: media.size.width * 0.9, y: media.size.height * 0.93).shadow(radius: 1)
-                            }
-                        )
                 } else {
                     Image(systemName: "film").imageScale(.large)
                 }
-            }
+            }.background(Color.white)
+                .frame(height: 190, alignment: .center).cornerRadius(16)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(.white, lineWidth: 2)
+                ).shadow(radius: 1)
+                .overlay(
+                    GeometryReader { media in
+                        Image(dvd.media)
+                            .resizable(resizingMode: .stretch)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 45, height: 40)
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .position(x: media.size.width * 0.89, y: media.size.height * 0.92).shadow(radius: 1)
+                    }
+                )
+            
             VStack(alignment: .center) {
                 Text(dvd.titres.fr)
                     .font(.footnote).foregroundColor(Color("TextColor"))
