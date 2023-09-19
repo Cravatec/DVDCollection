@@ -58,11 +58,11 @@ struct DVDListView: View {
                     }
                 }
                 .alert(isPresented: $showAlert) {
-                    _ = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
+                    let defautAlert = currentAlert ?? Alert(title: Text("Error"), message: Text("Unknown error"))
                     
                     let filteredDvds = filteredBarcode(barcode: viewModel.barcodeVM, dvds: viewModel.dvds) // Pass dvds array
                     
-                    return Alert(
+                    if viewModel.message == "This disc is already in your collection." { return Alert(
                         title: Text("Attention"),
                         message: Text("\(viewModel.message)"),
                         primaryButton: .default(Text("View Disc")) {
@@ -72,6 +72,9 @@ struct DVDListView: View {
                         },
                         secondaryButton: .default(Text("OK"))
                     )
+                    } else {
+                        return defautAlert
+                    }
                 }
                 
                 VStack() {
