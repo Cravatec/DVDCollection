@@ -58,8 +58,8 @@ class DVDListViewModel: ObservableObject {
             switch result {
             case .success(let dvds):
                 DispatchQueue.main.async {
-                    self?.dvds = dvds
                     self?.isShowingMessage = false
+                    self?.dvds = dvds
                 }
             case .failure(let error as NSError):
                 DispatchQueue.main.async {
